@@ -1,0 +1,146 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\input{preamble}
+\begin{document}
+\Sec{第3章 均方分析：收敛性·二阶矩空间H·均方极限与连续·均方导数·随机积分}
+
+\Sub{3.1 随机变量序列的收敛与极限定理}
+\Def{定义3.1.1（弱收敛）} $F_n(x)\to F(x)$（在 $F$ 的连续点处），记 $F_n\Rightarrow F$。
+\Def{依分布} $F_n\Rightarrow F(x)$。
+\Def{依概率} $\lim_{n\to\infty}P\{|X_n-X|<\varepsilon\}=0\ (\forall\varepsilon>0)$。
+\Def{依概率为1（a.s.）} $P\{\omega:\lim X_n(\omega)=X(\omega)\}=1$。
+\Def{均方收敛} $\lim_{n\to\infty}E|X_n-X|^2=0$（记 $\lima X_n=X$）。
+
+\Hi{收敛关系} 均方 $\Rightarrow$ 依概率 $\Rightarrow$ 依分布；a.s.\ $\Rightarrow$ 依概率；均方 $\Rightarrow$ a.s.\ 不成立；依分布 $\nRightarrow$ 依概率。
+（反例：$X_n$ 与 $X$ 同分布但 $X_n-X\equiv2$ $\Rightarrow$ 依分布不依概率；$X_n=n\,1_{\{U<1/n\}}$ 均方收敛到 0 但不 a.s.\ 收敛。）
+
+\Hi{定理3.1.1（列维--克拉美连续性定理）} $F_n\Rightarrow F\Rightarrow\varphi_n\to\varphi$（特征函数收敛）；
+\emph{逆定理} $\varphi_n\to\varphi$ 且 $\varphi$ 在 $t=0$ 处连续 $\Rightarrow F_n\Rightarrow F$（$t=0$ 连续不可少）。
+
+\Hi{大数定律}
+\begin{itemize}
+\item \Def{定理3.1.2（切比雪夫）} 独立，$E(X_k),D(X_k)$ 存在且 $D(X_k)<C$（一致有界）$\Rightarrow$ $\lim P\Big\{\Big|\sum_{i=1}^nX_i-\sum_{i=1}^nE(X_i)\Big|<\varepsilon\Big\}=1$。
+\item \Def{定理3.1.3（独立同分布）} 独立同分布，$E(X_k)=\mu,D(X_k)=\sigma^2\Rightarrow$ $\lim P\big\{|\frac1n\sum X_k-\mu|<\varepsilon\big\}=1$。
+\item \Def{定理3.1.4（辛钦）} 独立同分布且 $E(X_k)=\mu$ 存在（\emph{对方差无要求}）$\Rightarrow$ 同上结论。
+\item \Def{定理3.1.5（贝努里）} $m$ 为 $n$ 重贝努里试验中 $A$ 出现次数，$P(A)=p\Rightarrow$ $\lim P\big\{|\frac mn-p\big|<\varepsilon\big\}=1$。
+\end{itemize}
+\Hi{中心极限定理} 独立同分布，$E(X_k)=\mu,D(X_k)=\sigma^2$（$k=1,2,\dots$）：
+$$\lim_{n\to\infty}P\Big\{\frac{\sum_{k=1}^n(X_k-\mu)}{\sigma\sqrt n}\le x\Big\}=\Phi(x).$$
+棣莫弗--拉普拉斯：$Y_n\sim B(n,p)$，$n\mu=np,\ n\sigma^2=np(1-p)$，$\lim P\{\frac{Y_n-np}{\sqrt{np(1-p)}}\le x\}=\Phi(x)$。
+例（泊松和的极限定理）：$X_k\sim P(\lambda)$ i.i.d. $\Rightarrow Y_n=\sum_{k=1}^nX_k\sim P(n\lambda)$；
+$Y_n^*=\frac{Y_n-n\lambda}{\sqrt{n\lambda}}\Rightarrow N(0,1)$。
+
+\Sub{3.2 二阶矩空间 $H$ 与均方收敛}
+\Def{$H$（二阶矩空间）} $H=\{X: E|X|^2<\infty\}$，为复内积空间，内积 $\langle X,Y\rangle=E[XY^*]$，范数 $\|X\|=\sqrt{E|X|^2}$。
+$\boxed{X=Y\ \text{a.s.}\iff d(X,Y)=0}$，其中 $d(X,Y)=\sqrt{E|X-Y|^2}=\|\hat X-Y\|$（a.s. 相等的唯一度量）。
+Hölder：$|\langle X,Y\rangle|\le\|X\|\|Y\|$。
+
+\Def{定义3.2.2（均方收敛）} $\lima X_n=X\iff\lim_{n\to\infty}E|X_n-X|^2=0$。
+\Hi{定理3.2.3（Cauchy 准则）} $H$ 中 $\{X_n\}$ 均方收敛 $\iff$ $\lim_{m,n\to\infty}E|X_m-X_n|=0$（$H$ 完备）。
+\Hi{定理3.2.4（线性性质）} 均方收敛对线性运算封闭：$\lima(\alpha X_n+\beta Y_n)=\alpha X+\beta Y$。
+\Hi{定理3.2.5（数字特征）} 若 $\lima X_n=X$，$\lima Y_n=Y$：
+$$\lim E(X_mY_n)=E(XY);\ \lim E(X_n)=E(X);$$
+$$\lim D(X_n)=D(X);\quad \lim\varphi_{X_n}(u)=\varphi_X(u).$$
+\Hi{定理3.2.6（洛易夫均方收敛判别准则）} $\{X_n\}\subset H$ 均方收敛 $\iff$ 极限 $\lim_{m,n}E(X_mX_n)$ 存在。
+\Hi{定理3.2.7} Lipschitz 映射保持均方收敛：$|f(x)-f(y)|\le L|x-y|\Rightarrow E|f(X_n)-f(X)|^2\le L^2E|X_n-X|^2$。
+
+\Sub{3.3 均方极限与均方连续}
+\Def{定义3.3.1} 若 $\lim_{s\to s_0}E|X(s)-X(s_0)|^2=0$，称 $X(s)$ 在 $s_0$ 处均方连续。
+\Hi{定理3.3.1（洛易夫准则）} 二阶矩过程在 $t_0$ 处均方收敛 $\iff$ 极限 $\lim_{s\to t_0}E[X(s)X(t)]$ 存在（$\forall t$）。
+\Hi{定理3.3.2（数字特征）} 若 $\lima_{s\to s_0}X(s)=X$：$E(XY)=\lim_{s\to s_0}E[X(s)Y]$；$\lim E(X(s))=E(X)$；$\lim D(X(s))=D(X)$；$\lim\varphi_{X(s)}(u)=\varphi_X(u)$。
+\Hi{定理3.3.3（均方连续准则）} $X(t)$ 在 $t_0$ 处均方连续 $\iff$ $R(s,t)$ 在 $(t_0,t_0)$ 处连续。
+\Hi{定理3.3.4} $X(t)$ 在整个 $T$ 上均方连续 $\iff$ $R(s,t)$ 在对角线 $\{(t,t)\}$ 上连续。
+\Hi{推论} $R(s,t)$ 在 $(t_0,t_0)$ 连续 $\Rightarrow$ $R$ 在 $T\times T$ 上连续。
+\Hi{定理3.3.5} 均方连续 $\Rightarrow$ $m(t)$、$D(t)$ 连续。
+
+\Sub{3.4 均方导数}
+\Def{定义3.4.1} $X'(t)=\lima_{\Delta t\to0}\dfrac{X(t+\Delta t)-X(t)}{\Delta t}$（均方导数，a.s. 意义下唯一）。
+\Hi{定理3.4.1（均方可微准则）} 在 $t$ 处均方可微 $\iff$ $R(s,t)$ 在 $(t,t)$ 处\emph{广义二阶可微}（存在二重极限 $\lim\limits_{\substack{\Delta s\to0\\\Delta t\to0}}\frac{R(t+\Delta s,t+\Delta t)-R(t+\Delta s,t)-R(t,t+\Delta t)+R(t,t)}{\Delta s\,\Delta t}$ 存在）。
+\Def{定义3.4.2（广义二阶导数）} 即上述二重极限。
+\Hi{推论3.4.1} $R$ 在 $T\times T$ 上广义二阶可微 $\Rightarrow$ $R'_s,R'_t,R''_{st},R''_{ts}$ 均存在。
+\Hi{定理3.4.2（矩性质）} $m_{X'}(t)=m'_X(t)$；$R_{X'}(s,t)=R''_{st}(s,t)=R''_{ts}(s,t)$；$R_{X'X}(s,t)=R'_s(s,t)$；$R_{XX'}(s,t)=R'_t(s,t)$。
+\Hi{定理3.4.3（基本性质）} ① 均方可导 $\Rightarrow$ 均方连续；② 线性：$[aX+bY]'=aX'+bY'$；③ 乘积法则 $[f(t)X(t)]'=f'(t)X(t)+f(t)X'(t)$；④ $X'(t)\equiv0\Rightarrow X(t)$ 是与 $t$ 无关的常随机变量（$[X(t)+X]'=0$）。
+注：正态过程未必均方可微（$X_t=Z\sin t$ 可微；$X_t=Z$ 或 $X_t=Z\sin(1/t)$ 不可微）；维纳过程均方连续但均方不可微。
+
+\Sub{3.5 随机积分}
+\Def{定义3.5.1（R-均方积分）} 黎曼和 $\sum_{k=1}^nf(t_k^*)X(t_k^*)\Delta t_k$ 的均方极限存在且与分割无关，则
+$\displaystyle\int_a^b f(t)X(t)\dd t=\lima\sum_{k=1}^nf(t_k^*)X(t_k^*)\Delta t_k$。
+\Def{定义3.5.2（R-S 均方积分）} $\displaystyle\int_a^b f(t)\dd X(t)=\lima\sum_{k=1}^nf(t_k^*)\big[X(t_k)-X(t_{k-1})\big]$；若 $X'(t)$ 存在，则 $=\int_a^bf(t)X'(t)\dd t$。
+\Def{定义3.5.3（Itô 积分）} $I_n=\sum_{i=1}^nX(t_{i-1})[W(t_i)-W(t_{i-1})]\Rightarrow \int_a^bX(t)\dd W(t)$（必须取左端点值）。
+\Hi{定理3.5.1（可积准则）} $f(t)X(t)$ 在 $[a,b]$ 上均方可积 $\iff$ 二重积分 $\displaystyle\int_a^b\!\int_a^b f(s)f(t)R(s,t)\dd s\dd t$ 存在。
+\Hi{推论1（重要公式）} 若 $R(s,t)$ 在 $[a,b]^2$ 上可积，则 $X(t)$ 均方可积且
+$$\boxed{\E\Big[\Big(\int_a^b X(t)\dd t\Big)^2\Big]=\int_a^b\!\int_a^b R(s,t)\dd s\dd t}.$$
+\Hi{定理3.5.2（性质）} 线性、区间可加：$\int_a^b=\int_a^c+\int_c^b$。
+\Hi{定理3.5.3（矩）} $\E\big[\int_a^bf(t)X(t)\dd t\big]=\int_a^bf(t)m_X(t)\dd t$；$\E\Big[\big(\int f X\dd t\big)\big(\int f Y\dd t\big)\Big]=\int\!\int f(s)f(t)R(s,t)\dd s\dd t$。
+\Hi{定理3.5.5（均方不定积分）} $Y(t)=\int_a^tX(s)\dd s$：$Y'(t)=X(t)$；$m_Y(t)=\int_a^tm_X(s)\dd s$；$R_Y(s,t)=\int_a^s\!\int_a^tR(u,v)\dd u\dd v$。
+\Hi{牛顿--莱布尼兹} $\displaystyle\int_a^bX'(t)\dd t=X(b)-X(a)$。
+\Hi{正态性保持} 定理3.5.6--3.5.9：均方极限保持正态；均方可微正态过程的导数过程仍正态；均方连续正态过程的积分过程仍正态。
+\Hi{反例/边界} 白噪声：均方不连续且 $R(0)=\infty$，非普通二阶矩过程；两两独立 $N(0,1)$ 的过程：均方不连续（$E|X(t+h)-X(t)|^2=2$）但均方可积（积分 $=0$）；$X(t)=\xi+1_{\mathbb Q}(t)$：均方不可积。
+
+
+\Sub{3.6 均方分析中的反例与边界情形（务必掌握）}
+\begin{center}\footnotesize
+\begin{tabular}{p{2.00cm}p{1.88cm}p{1.88cm}p{2.70cm}}\hline
+过程 & 均方连续 & 均方可积 & 均方可微\\\hline
+维纳过程 $\{W(t)\}$ & $\checkmark$ & $\checkmark$ & $\times$（$E|{\Delta W}/h|^2=\sigma^2/h\to\infty$）\\
+泊松过程 $\{N(t)\}$ & $\checkmark$ & $\checkmark$ & $\times$（$R$ 对角线折角）\\
+OU 过程 $R(\tau)=\sigma^2e^{-\alpha|\tau|}$ & $\checkmark$ & $\checkmark$ & $\times$（$|\tau|$ 在 0 处不可导）\\
+光滑高斯 $R(\tau)=\sigma^2e^{-\tau^2}$ & $\checkmark$ & $\checkmark$ & $\checkmark$（无穷次可微）\\
+白噪声 & $\times$（$R(0)=\infty$） & --- & ---（非普通二阶矩过程）\\
+两两独立 $N(0,1)$ & $\times$（$E|X(t+h)-X(t)|^2=2$） & $\checkmark$（积分 $\equiv0$） & ---\\
+$\xi+1_{\mathbb Q}(t)$，$\xi\sim N(0,1)$ & --- & $\times$ & ---\\\hline
+\end{tabular}\end{center}
+\Hi{反例：均方收敛 $\nRightarrow$ a.s. 收敛} 取 $U\sim U(0,1)$，令 $X_n=1_{\{U<1/n\}}$：$\E X_n^2=P\{U<1/n\}=\frac1n\to0$（均方收敛到 0），但对每个 $U$ 每轮扫描区间长度 $\to0$ 且始终被扫描到，故 $X_n$ 反复取 1 与 0 $\Rightarrow$ 不 a.s.\ 收敛。
+\Hi{反例：依分布 $\nRightarrow$ 依概率} 设 $X$ 以各 $\frac12$ 概率取 $\pm1$，令 $X_n=-X$：$X_n\stackrel{d}=X$（依分布）但 $X_n-X\equiv2$（不依概率）。
+
+\Sub{3.7 均方微积分与自相关函数的对应（方法论总结）}
+$$\underbrace{\lima X_n=X}_{\text{均方收敛}}\iff\underbrace{\lim E(X_mX_n)\ \text{存在}}_{\text{洛易夫判别}}$$
+$$\underbrace{\text{均方连续}\iff R(s,t)\ \text{在 }(t_0,t_0)\ \text{连续}}$$
+$$\underbrace{\text{均方可微}\iff R\ \text{广义二阶可微}}$$
+积分：$E\Big[\big(\int_a^bX\dd t\big)^2\Big]=\int\!\int R(s,t)\dd s\dd t$（把均方积分转化为自相关函数的普通积分）。
+
+
+\Sub{3.8 均方积分的补充性质与计算示例}
+\Hi{可积性的判别（洛易夫准则的积分形式）} $f(t)X(t)$ 在 $[a,b]$ 上均方可积 $\iff$ $\displaystyle\int_a^b\!\int_a^b f(s)f(t)R(s,t)\dd s\dd t$ 存在。
+\Hi{计算示例1} $X(t)=A\cos at+B\sin at$，$A,B\overset{ind}{\sim}N(0,\sigma^2)$：$m=0$，$R(s,t)=\sigma^2\cos a(t-s)$；
+令 $Y(t)=\int_0^tX(s)\dd s$，则
+$$m_Y(t)=0,\qquad D_Y(t)=\frac{2\sigma^2}{a^2}[2-2\cos at],$$
+$$R_Y(s,t)=\frac{2\sigma^2}{a^2}\big[1-\cos as-\cos at+\cos a(t-s)\big]$$
+\Hi{计算示例2} $X(t)$ 协方差 $C_X(t_1,t_2)=(1+t_1t_2)\sigma^2$，$Y(s)=\int_0^sX(t)\dd t$：
+$$C_Y(s_1,s_2)=\sigma^2s_1s_2(1+s_1s_2),\qquad D_Y(s)=\sigma^2s(1+s).$$
+\Hi{计算示例3} $X(t)=At+B$，$t\in[0,1]$：$E\big[\int_0^1X(t)\dd t\big]=0$，$E\big[\int_0^1X^2(t)\dd t\big]=\frac43\sigma^2$。
+\Hi{计算示例4} $W(t)$ 为参数 $\sigma^2$ 的维纳过程，$X(t)=\int_0^tW(s)\dd s$：$m_X=0$，
+$$R_X(s,t)=\sigma^2\int_0^s\!\int_0^t\min(u,v)\dd u\dd v$$
+$$=\sigma^2\big[\tfrac32\min^2(s,t)-\tfrac12 s^2t-\tfrac12st^2\big]$$
+
+\Sub{3.9 均方随机微分方程（EX.5/EX.6）}
+\Hi{随机积分方程} $X(a)+\int_a^tX'(s)\dd s=X_0+\int_a^tY(s)\dd s$，
+$$m_X(t)=E(X_0)+\int_a^tm_Y(s)\dd s,$$
+$$R_X(s,t)=E[X_0^2]+E[X_0]\Big(\int_a^tm_Y\dd s\Big)\Big(\int_a^tm_Y\dd v\Big)$$
+$$+\iint R_Y(u,v)\dd u\dd v$$
+（牛顿--莱布尼兹公式 $\int_a^bX'(t)\dd t=X(b)-X(a)$ 是关键工具。）
+\Hi{一阶线性随机微分方程} $Y'(t)+\beta(t)Y(t)=X(t)$，$Y(a)=Y_0$（$X$ 均方连续，$Y_0$ 二阶矩）：
+$$\boxed{Y(t)=e^{-\int_a^t\beta(u)\dd u}Y_0+\int_a^t e^{-\int_s^t\beta(u)\dd u}X(s)\dd s}$$
+\Hi{验证思路} 对上式两边取均方导数（均方导数的线性性），整理即得原方程。
+
+\Sub{3.10 一维与多维正态的均方极限}
+\Hi{定理3.5.6} 正态随机变量序列的均方极限仍为正态：$X_n\sim N(\mu_n,\sigma_n^2)$，$\lima X_n=X\Rightarrow X\sim N(\mu,\sigma^2)$（用 $\varphi(u)=\lim\varphi_n(u)=e^{j\mu u-\frac12\sigma^2u^2}$）。
+\Hi{定理3.5.7} $m$ 维正态向量序列的均方极限仍为 $m$ 维正态向量。
+\Hi{定理3.5.8} 正态过程在 $T$ 上均方可微 $\Rightarrow$ 导数过程仍为正态过程。
+\Hi{定理3.5.9} 均方连续的正态过程的积分过程 $Y(t)=\int_a^tX(s)\dd s$ 仍为正态过程。
+\Hi{说明} "正态过程是均方可微/均方连续过程吗？"——\emph{均不一定}：$X_t=Z\sin t$（$Z\sim N(0,1)$）可微，$X_t=Z$ 不可微；$X_t\sim N(0,1)$ 且两两独立则不均方连续。
+
+\Sub{3.11 均方分析中的其他重要结论与判别方法}
+\Hi{均方收敛与强收敛关系} 均方收敛 $\Rightarrow$ 依概率收敛；均方收敛 $\Rightarrow$ a.s.\ 不成立（反例 $X_n=1_{\{U<1/n\}}$，$U\sim U(0,1)$）。
+\Hi{正态性保持（定理3.5.6--3.5.9）} ① 正态序列均方极限仍正态；② $m$ 维正态向量序列均方极限仍 $m$ 维正态向量；③ 正态过程均方可微 $\Rightarrow$ 导数过程正态；④ 均方连续正态过程的积分过程正态。
+\Hi{应用提示} 求解"是否均方可微/可积"类问题，先算 $R(s,t)$，再看它在对角线上的连续性、广义二阶可微性——这是本章通用方法论。
+
+\Sub{3.12 常见误区的辨析（务必掌握）}
+\begin{itemize}
+\item "均方收敛 $\Rightarrow$ a.s.\ 收敛"不成立；"依分布 $\Rightarrow$ 依概率"不成立（$X_n=-X$，$X=\pm1$ 等概率）。
+\item 泊松过程、维纳过程均方连续、均方可积，但\emph{均方不可微}（$R$ 对角线折角；$E|{\Delta W}/h|^2=\sigma^2/h\to\infty$）。
+\item OU 过程 $R(\tau)=\sigma^2e^{-\alpha|\tau|}$ 连续可积但\emph{不可微}；白噪声 $R(0)=\infty$ 非普通二阶矩过程。
+\item 两两独立 $N(0,1)$ 的过程均方不连续（$E|X(t+h)-X(t)|^2=2$）但均方可积（积分 $\equiv0$）；$X(t)=\xi+1_{\mathbb Q}(t)$ 均方不可积。
+\end{itemize}
+
+\end{multicols}
+\end{document}

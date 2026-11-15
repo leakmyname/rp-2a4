@@ -1,0 +1,167 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\input{preamble}
+\begin{document}
+\Sec{第1章 随机过程基本概念：定义·分布·数字特征·分类}
+
+\Sub{1.1 定义与有限维分布}
+\Def{随机过程} $\{X_t(\omega),t\in T\}$ 是定义在积集 $T\times\Omega$ 上的二元函数 $X_t(\omega)=X(t,\omega)$；状态空间（值域）$E=\{x:X_t(\omega)=x\}$。$T$ 可列 $\Rightarrow$ 时间序列；$T$ 为向量集 $\Rightarrow$ 随机场。
+分类（按 $T,E$）：离散参数/连续参数；离散状态（链）/连续状态。
+
+一维分布 $F_t(x)=P\{X_t\le x\}$；$n$ 维联合分布
+$$F_{t_1\cdots t_n}(x_1,\dots,x_n)=P\{X_{t_1}\le x_1,\dots,X_{t_n}\le x_n\}.$$
+
+\Hi{有限维分布的两条性质}
+① 对称性：$F_{t_{j_1}\cdots t_{j_n}}(x_{j_1},\dots,x_{j_n})=F_{t_1\cdots t_n}(x_1,\dots,x_n)$；
+② 纵向相容性：对 $m<n$，
+$$F_{t_1\cdots t_m,\cdot,\ t_n}(x_1,\dots,x_m,\ast,\dots,\ast)$$
+$$=\lim_{x_n\to+\infty}F_{t_1\cdots t_n}(x_1,\dots,x_m,x_n).$$
+特征函数同样相容：$\varphi_{t_1\cdots t_n}(u_1,\dots,u_n)=\varphi_{t_1\cdots t_m,\cdot,t_n}(u_1,\dots,u_m,0,\dots,0)$。
+
+\Def{定理1.1.3（Kolmogorov 存在定理）} 给定一维分布族 $\{F_t\}$ 与 $n$ 维相容的联合分布族 $\{F_{t_1\cdots t_n}\}$，当且仅当它们满足对称性与纵向相容性时，存在随机过程具有这些有限维分布。
+
+\Sub{1.2 数字特征}
+$$m(t)=E[X_t]=\int x\,\dd F_t(x),$$
+$$D(t)=D(X_t)=E\{[X_t-m(t)]^2\}=\E X_t^2-m(t)^2.$$
+$$R(s,t)=E[X_sX_t]\ (\emph{自相关函数，重点}),$$
+$$C(s,t)=\Cov(X_s,X_t)=R(s,t)-m(s)m(t),\quad D(t)=C(t,t),$$
+$$\rho(s,t)=\frac{C(s,t)}{\sqrt{D(s)D(t)}}\ (\text{自相关系数}).$$
+复过程 $Z_t=X_t+jY_t$：$m_Z(t)=m_X+jm_Y$，$D_Z=D_X+D_Y$，$R_Z(s,t)=E[Z_sZ_t]$，$C_Z=R_Z-m_Z(s)m_Z(t)$。
+
+\Sub{1.3 过程的分类}
+\Def{二阶矩过程} 若 $\forall t\in T,\ E|X_t|<\infty$，称二阶矩随机过程（此时协方差、相关函数总存在）。
+\Def{定理1.3.1（相关函数性质）} 若 $m_X(t)\equiv0$：
+① 非负定性 $\displaystyle\sum_{k=1}^{n}\sum_{j=1}^{n}R(t_k,t_j)\alpha_k\alpha_j^*=E\Big|\sum_k \alpha_kX_{t_k}\Big|^2\ge0$；
+② 埃密特性 $R(t,s)=R(s,t)$（实值），故宽平稳的 $R(\tau)=R(-\tau)$ 为偶函数。
+
+\Def{宽（广义、弱）平稳} 复二阶矩过程满足 $m(t)=m$（常数），$C(s,t)=C(s-t)=C(\tau)$；实平稳时 $D(s)=C(0)=R(0)-m^2$ 为常数。
+\Def{严（狭义、强）平稳} 任意 $n>1$、$t_1,\dots,t_n\in T$、$\tau$ 有
+$$F_{t_1\cdots t_n}(x_1,\dots,x_n)=F_{t_1+\tau,\dots,t_n+\tau}(x_1,\dots,x_n).$$
+\Hi{定理4.1.2} 高斯过程：宽平稳 $\iff$ 严平稳（正态分布完全由均值与协方差决定）。
+严平稳例子：① i.i.d.\ 序列；② 随机相位正弦波 $X_t=a\cos\omega t+\Theta,\ \Theta\sim U(0,2\pi)$；③ 均值为 $0$、方差 $\sigma^2$ 的高斯白噪声。
+\Hi{反例} $X_t=A\cos\omega t+\varphi$：均值 $E[A]\cos\omega t+\varphi$ 非常数 $\Rightarrow$ 不平稳；$X_t=a\cos\Omega t+\varphi$（$\Omega$ 随机）：$R$ 依赖绝对时间 $\Rightarrow$ 不平稳。
+仅有"均值方差恒定"不足以判平稳（还须自协方差只依赖时间差）。
+
+\Sub{1.4 增量过程}
+\Def{平稳增量} $X_{t+h}-X_{s+h}\stackrel{d}{=}X_t-X_s$（增量分布只依赖 $t-s$，与起点无关；又称时齐）。
+\Def{独立增量} 对 $t_1<t_2<\cdots<t_n$，增量 $X_{t_{k}}-X_{t_{k-1}}$ 相互独立。
+\Def{不相关增量} $t_1<t_2<t_3<t_4$：$E[(X_{t_2}-X_{t_1})(X_{t_4}-X_{t_3})]=E[X_{t_2}-X_{t_1}]E[X_{t_4}-X_{t_3}]$；
+\Def{正交增量} $E[(X_{t_2}-X_{t_1})(X_{t_4}-X_{t_3})]=0$。
+
+\Hi{性质1.3.1（重点）} 设 $\{X(t),t\ge0\}$ 是平稳独立增量过程且 $X(0)=0$，则
+$$m(t)=mt,\ (m=m(1));\qquad D(t)=\sigma^2t,\ (\sigma^2=D(1));$$
+$$C(s,t)=\sigma^2\min(s,t).$$
+证明要点：$m(s+t)=m(s)+m(t)$，$D(s+t)=D(s)+D(t)$ $\Rightarrow$ 均线性；$t>s$ 时 $X_s$ 与 $X_t-X_s$ 独立 $\Rightarrow C(s,t)=\sigma^2s$。
+
+\Hi{性质1.3.2} 独立增量过程的有限维分布由\textbf{一维分布与增量分布}唯一确定（若 $P\{X_a=0\}=1$，则仅由增量分布确定）。证法：$Y_k=X_{t_k}-X_{t_{k-1}}$ 相互独立，联合特征函数可分解。
+
+\Hi{白噪声} 均值为 $0$、$R(m,n)=\sigma^2\delta_{mn}$ 的独立同分布序列（离散）或 $R(s,t)=\sigma^2\delta(s-t)$（连续广义）。
+
+\Sub{1.5 典型信号例表}
+\begin{center}\footnotesize
+\begin{tabular}{p{1.44cm}p{2.76cm}p{4.44cm}}\hline
+类型 & 数学表达式 & 结论\\\hline
+随机相位 & $X_t=a\cos\omega t+\Theta,\ \Theta\sim U(0,2\pi)$ & $E[X_t]=0$，$R_X(\tau)=a^2\cos\omega\tau$，严+宽平稳\\
+随机幅值 & $X_t=A\cos\omega t+\varphi$ & 均值非常数 $\Rightarrow$ 不平稳\\
+随机频率 & $X_t=a\cos\Omega t+\varphi$ & $R$ 含绝对时间 $\Rightarrow$ 不平稳\\
+三角多项式 & $X_t=A\cos at+B\sin at,\ A,B\sim N(0,\sigma^2)$ 独立 & $m=0$，$R(s,t)=\sigma^2\cos a(t-s)$\\\hline
+\end{tabular}\end{center}
+
+
+\Sub{1.6 过程的建模实例与样本函数}
+典型背景：布朗运动（花粉微粒不规则运动）、雷达回波 $X_t=A\cdot S(t-\tau)+N_t$（$A$ 能量损失、$\tau$ 距离、$N_t$ 干扰）、排队（到达为泊松过程）、神经细胞位势恢复、话务量过程。
+
+\Def{样本函数（轨道）} 固定 $\omega_0\in\Omega$，$x(t,\omega_0)$ 称为样本函数/轨道；$\{X_t=x\}$ 称为状态的转移事件。
+
+\Sub{1.7 数字特征的物理意义与例}
+① 均值函数 $m(t)$：$X_t$ 在时刻 $t$ 的集中趋势（数学上 $\E X_t=\int x\,\dd F_t(x)$）；
+② 自相关函数 $R(s,t)=\E[X_sX_t]$：$X_s$ 与 $X_t$ 的线性相关程度，$R(t,t)=\E X_t^2$；
+③ 协方差 $C(s,t)=R(s,t)-m(s)m(t)$（$m\equiv0$ 时 $C=R$）。
+
+\Hi{例：$X_t=U+Vt$}，$U,V$ 独立且 $\sim N(0,1)$ $\Rightarrow$ $m(t)=0$，$D(t)=1+t^2$，$R(s,t)=1+st$（正态过程，均值/协方差确定二阶性质）。
+\Hi{例：$X_t=At+B$}，$t\in[0,1]$：$m(t)=0$，$E[X^2(t)]=\sigma^2(1+t^2)$；
+$Z=\int_0^1X(t)\dd t\Rightarrow E[Z]=0$，$E\!\left[\int_0^1X^2(t)\dd t\right]=\frac{4}{3}\sigma^2$。
+
+\Sub{1.8 相关函数性质的推导要点（非负定性）}
+$$\sum_{k=1}^n\sum_{j=1}^nR(t_k,t_j)\alpha_k\overline{\alpha_j}=\E\Big[\Big|\sum_{k=1}^n\alpha_kX_{t_k}\Big|^2\Big]\ge0$$
+（零均值时 $R=C$；复过程用 $\alpha_k\overline{\alpha_j}$）。
+埃密特性（实值）：$R(t,s)=\E(X_tX_s)=\E(X_sX_t)=R(s,t)$；若 $R$ 只依赖 $\tau=s-t$，则 $R(\tau)=R(-\tau)$（偶函数）。
+
+\Sub{1.9 严平稳过程与平移}
+随机变量的函数 $g$ 保持分布：若 $X\stackrel{d}{=}Y$ 则 $g(X)\stackrel{d}{=}g(Y)$；
+平移算子 $X(t+\tau)$ 与 $X(t)$ 同分布当且仅当严平稳；
+随机相位正弦波 $X_t=a\cos\omega t+\Theta$，$\Theta\sim U(0,2\pi)$：任意 $t$ 分布相同 $\Rightarrow$ 严平稳；
+高斯白噪声：任意有限维分布为多元正态、均值 0、协方差 $\sigma^2I$，平移后不变 $\Rightarrow$ 严平稳。
+
+
+\Sub{1.10 两类增量过程的比较与例子}
+\begin{center}\footnotesize
+\begin{tabular}{p{1.75cm}p{3.15cm}p{3.73cm}}\hline
+ & 平稳增量 & 独立增量\\\hline
+含义 & $X_{t+h}-X_{s+h}\overset{d}=X_t-X_s$（增量分布只依赖 $t-s$） & 相邻区间增量相互独立\\
+例 & $X_t=a\cos\omega t+\Theta$（随机相位） & 泊松过程、维纳过程；$Y(n)=\sum_{k=0}^nX(k)$（独立同分布 $\Rightarrow$ 平稳独立增量）\\
+加强 & 平稳 $+$独立 $\Rightarrow$ 平稳独立增量 & 独立 $\Rightarrow$ 协方差结构由增量方差决定\\\hline
+\end{tabular}\end{center}
+
+\Hi{累加过程的构造} 若 $\{X(n)\}$ 独立同分布，$Y(n)=\sum_{k=0}^nX(k)$，$X(0)=0$，则 $Y$ 是（平稳）独立增量过程。
+
+\Sub{1.11 正态过程的引入与例子（为第2章铺垫）}
+正态过程：有限维分布族均为正态分布族。
+正态性由均值与协方差完全决定 $\Rightarrow$ 均值、协方差是研究正态过程的全部工具。
+\Hi{例：$X_t=U+Vt$}，$U,V\overset{ind}{\sim}N(0,1)$：$m(t)=0$，$D(t)=1+t^2$，$R(s,t)=1+st$；是线性（非平稳）正态过程。
+\Hi{例：$X_t=\xi\sin t$}，$\xi\sim N(0,1)$：$m(t)=0$，$R(s,t)=\sin s\sin t$。
+
+
+\Sub{1.12 平稳性的判定要点与常见结论}
+\begin{center}\footnotesize
+\begin{tabular}{p{2.55cm}p{3.28cm}p{2.80cm}}\hline
+过程 & 结论 & 原因\\\hline
+维纳过程 $\{W(t)\}$ & 宽平稳 & 平稳独立增量，性质1.3.1\\
+$X(t)=W(t+a)-W(t)$，$a>0$ & 宽平稳 & $R(\tau)=\sigma^2(a-|\tau|)^+$，$|\tau|<a$\\
+$Z(t)=W(t+a)-W(a)$，$a>0$ & \emph{不}宽平稳 & $R$ 依赖绝对时间 $t$\\
+泊松过程 $\{N(t)\}$ & \emph{不}平稳 & $m(t)=\lambda t$ 与时间有关\\
+$N(t+h)-N(t)$，$h>0$ & 宽平稳且严平稳 & 增量平稳独立\\
+$\{X(t)\}$ 独立同分布序列 & 严平稳（不一定宽平稳） & 联合分布平移不变\\
+随机相位正弦波 & 严 + 宽平稳 & $\Theta\sim U(0,2\pi)$\\
+随机幅值/随机频率信号 & 不平稳 & 均值或 $R$ 依赖绝对时间\\\hline
+\end{tabular}\end{center}
+\Hi{均方可微的宽平稳过程的导数过程仍宽平稳}：$Y(t)=X'(t)$，$m_Y(t)=m_X'(t)=0$（宽平稳时 $m$ 为常数），$R_Y(\tau)=-R_X''(\tau)$。
+
+\Sub{1.13 随机过程的存在性与构造}
+Kolmogorov 定理的思路：不直接描述路径（路径空间太大），而是描述任意有限个时刻的联合分布；相容性 + 对称性保证这些有限维分布来自同一个概率空间。
+由一维分布构造 i.i.d.\ 序列：$\Omega=\prod_{n\ge1}\Omega_n$，$\mathcal F=\bigotimes\mathcal F_n$，$P=\prod P_n$（无穷维乘积空间）。
+\Hi{注意} $N(t)\sim P(\lambda t)$ 不蕴含增量平稳；同理，一维分布族不能唯一决定过程，必须配合相容的有限维分布族。
+
+\Sub{1.14 常用过程的均值/方差/相关函数汇总表}
+\begin{center}\footnotesize
+\begin{tabular}{p{2.16cm}p{1.55cm}p{1.67cm}p{3.10cm}}\hline
+过程 & $m(t)$ & $D(t)$ & $R(s,t)$\\\hline
+常数 $X_t\equiv c$ & $c$ & $0$ & $c^2$\\
+$X_t=At+B$ & $A t+B$ & $A^2D(A)+D(B)$ & $E(A^2)st+E(AB)(s+t)+E(B^2)$\\
+$U+Vt$（$U,V$ 独立 $N(0,1)$）& $0$ & $1+t^2$ & $1+st$\\
+$Z\sin t$（$Z\sim N(0,1)$）& $0$ & $\sin^2t$ & $\sin s\sin t$\\
+维纳 $W_t$ & $0$ & $\sigma^2t$ & $\sigma^2\min(s,t)$\\
+泊松 $N(t)$ & $\lambda t$ & $\lambda t$ & $\lambda\min(s,t)+\lambda^2st$\\
+$a\cos\omega t+\Theta$，$\Theta\sim U(0,2\pi)$ & $0$ & $a^2/2$ & $\frac{a^2}{2}\cos\omega(s-t)$\\\hline
+\end{tabular}\end{center}
+
+\Sub{1.15 白噪声序列、AR 模型与随机过程的分类}
+\Def{离散白噪声序列} $E(X_n)=0,\ D(X_n)=\sigma^2$，$R(m,n)=\sigma^2\delta_{mn}$（两两不相容），即独立同分布、零均值。
+\Def{连续白噪声} $E(X_t)=0,\ R(s,t)=\sigma^2\delta(s-t)$：$R(0)=\infty$，不是普通二阶矩过程，只能作广义过程（其"导数"是维纳过程）。
+\Hi{高斯白噪声} 任意有限维分布为多元正态 $N(0,\sigma^2I)$，平移后协方差不变 $\Rightarrow$ 严平稳过程，也是独立过程。
+\Hi{自回归模型 AR(p)} $X_t=\varphi_1X_{t-1}+\cdots+\varphi_pX_{t-p}+\varepsilon_t$，$\varepsilon_t$ 为白噪声；平稳解的条件为特征方程 $\lambda^p-\varphi_1\lambda^{p-1}-\cdots-\varphi_p=0$ 的根全在单位圆内。
+\Hi{随机过程的分类总表}
+\begin{center}\footnotesize
+\begin{tabular}{p{2.10cm}p{3.20cm}p{3.30cm}}\hline
+分类依据 & 类型 & 判据/要点\\\hline
+参数集 $T$ & 连续时间 / 离散时间 & $T\subset\mathbb R$ 或 $T=\{1,2,\dots\}$\\
+状态空间 $E$ & 实值 / 复值 / 整数值（计数过程） & $X_t\in E$\\
+平稳性 & 宽平稳 / 严平稳 & 均值常数且 $C$ 只依赖 $\tau$ / 联合分布平移不变\\
+增量性质 & 独立增量 / 平稳增量 / 平稳独立增量 & 增量互相独立 / 分布只依赖区间长度\\
+正态性 & 正态（高斯）过程 & 有限维联合分布均为多元正态\\\hline
+\end{tabular}\end{center}
+\Hi{互相关与互协方差} $R_{Z(1)Z(2)}(s,t)=E[Z_s^{(1)}Z_t^{(2)}]$，$C_{Z(1)Z(2)}(s,t)=\Cov(Z_s^{(1)},Z_t^{(2)})$（两个随机过程之间的量）。
+\Hi{物理意义} 均值 $m(t)$ 为集合平均值（对 $X_t$ 取期望）；方差 $D(t)$ 反映 $X_t$ 取值分散程度；相关函数 $R(s,t)$ 反映不同时刻取值的线性关联。
+\Hi{注意} $N(t)\sim P(\lambda t)$（一维分布族）\emph{不能}唯一确定过程，必须配合相容的有限维分布族。
+
+\end{multicols}
+\end{document}

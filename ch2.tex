@@ -1,0 +1,161 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\input{preamble}
+\begin{document}
+\Sec{第2章 几种重要随机过程：正态过程·维纳过程·泊松过程及其推广}
+
+\Sub{2.1 正态（高斯）过程}
+\Def{定义2.1.1} $B=(b_{ij})$ 为 $n$ 阶正定对称阵，$\mu$ 为 $n$ 维列向量，
+$$f(x_1,\dots,x_n)=\frac{1}{(2\pi)^{n/2}|B|^{1/2}}
+$$\cdot\exp\!\Big\{-\tfrac12(x-\mu)^{\mathsf T}B^{-1}(x-\mu)\Big\},$$
+记 $X\sim N(\mu,B)$：$\E(X_i)=\mu_i$，$b_{ij}=\Cov(X_i,X_j)$。
+\Def{定义2.1.2} 若 $B$ 非负定对称且特征函数为下式，也称服从 $n$ 维正态分布（$B=0$ 时为\emph{退化/奇异}正态）。
+\Hi{定理2.1.1} $X\sim N(\mu,B)\Rightarrow\varphi_X(t)=\exp\!\big\{j\mu^{\mathsf T}t-\tfrac12 t^{\mathsf T}Bt\big\}$。
+\Hi{定理2.1.2} 任一子向量仍服从正态 $N(\tilde\mu,\tilde B)$（边缘分布仍是正态）。
+\Hi{定理2.1.3} $n$ 维正态向量相互独立 $\iff$ 当 $i\ne j$ 时 $\rho_{ij}=0$；等价：$B$ 为对角阵、联合密度可分解、特征函数可分解。
+\Hi{定理2.1.4（线性变换）} $X\sim N(\mu,B)$，$C$ 为任意 $m\times n$ 阵 $\Rightarrow Y=CX\sim N(C\mu,\,CBC^{\mathsf T})$；$m>n$ 时必退化。推论2：$Y=LX\Rightarrow \E(Y)=L\mu$，$D(Y)=LBL^{\mathsf T}$。推论4：取正交变换可去相关。
+
+\Def{正态过程（定义2.1.3）} 有限维分布函数族都是正态分布函数族。
+性质：正态过程可加 $\mu_Z=\mu_X+\mu_Y$，$B_Z=B_X+B_Y$；高斯过程由均值与协方差完全决定 $\Rightarrow$ 宽平稳 $\iff$ 严平稳（定理4.1.2）。
+
+\Sub{2.2 维纳（布朗）过程}
+\Def{定义2.2.1} $\{W_t,t\ge0\}$ 满足：① $P\{W_0=0\}=1$；② 独立增量；③ $W_t-W_s\sim N(0,\sigma^2(t-s))$；④ 轨道连续（几乎所有样本函数连续）。$\sigma=1$ 为标准维纳过程。
+物理来源：随机游动（独立 $\pm1$）取 $\Delta x=c\sqrt{\Delta t}$ 的极限 $\Rightarrow N(0,c^2t)$（泛函中心极限定理）。
+
+\Hi{定理2.2.1} 维纳过程是正态过程（增量独立正态 $\Rightarrow$ 有限维联合正态，$B_{ij}=\sigma^2\min(t_i,t_j)$）。
+\Hi{定理2.2.2（充要条件）} $\{W_t\}$ 是正态过程且 $W_0=0$、$E(W_t)=0$、$E(W_sW_t)=\sigma^2\min(s,t)$、轨道连续 $\Rightarrow$ 维纳过程，反之亦然。
+
+\Hi{性质} ① 平稳独立增量：$E(W_t)=0$，$D(W_t)=\sigma^2t$，$C(s,t)=R(s,t)=\sigma^2\min(s,t)$；② 正态过程；③ 马尔可夫过程；④ 均方连续但均方\emph{不可微}（$E|[W(t+h)-W(t)]/h|^2=\sigma^2/h\to\infty$）；⑤ 白噪声为其广义导数 $\delta(t)$。
+
+\Hi{派生过程} $X(t)=W^2(t)$：$m_X(t)=\sigma^2t$，$R_X(s,t)=\sigma^4\big[st+2\min^2(s,t)\big]$；
+$X(t)=tW(1/t)$：$m_X=0$，$R_X(s,t)=\sigma^2\min(s,t)$。
+高斯矩：$\E W_t^{2n}=\sigma^{2n}t^n(2n-1)!!$，$\E W_t^{2n+1}=0$。
+下列仍是维纳过程：$W(t+a)-W(a)$；$cW(t^2)$（$c>0$）；$-W(t)$；$tW(1/t)$（$t>0$，$W_4(0)=0$）。
+
+\Sub{2.3 泊松过程}
+\Def{计数过程} $\{N(I),I\subset T\}$：$N(I)$ 非负整数值随机变量，$N(\varnothing)=0$，$I_1\cap I_2=\varnothing\Rightarrow N(I_1\cup I_2)=N(I_1)+N(I_2)$。
+
+\Def{定义2.3.2（齐次泊松过程）} ① $N(0)=0$；② 平稳独立增量；③ 稀有性 $P\{N(h)=1\}=\lambda h+o(h)$，$P\{N(h)=0\}=1-\lambda h+o(h)$；④ 相继性 $P\{N(h)\ge2\}=o(h)$。
+\Hi{定理2.3.2（等价定义）} $N$ 是强度 $\lambda$ 的齐次泊松过程 $\iff$ $N(0)=0$ 且 $\forall\,0\le s<t$：$N(t)-N(s)\sim P(\lambda(t-s))$，
+$$P\{N(t)-N(s)=k\}=\frac{[\lambda(t-s)]^k}{k!}e^{-\lambda(t-s)}\ (k\ge0)$$
+（注意：一维分布 $N(t)\sim P(\lambda t)$ 本身\emph{不能}推出增量平稳性。）
+
+\Hi{数字特征} $m(t)=\lambda t$，$D(t)=\lambda t$，$C(s,t)=\lambda\min(s,t)$，$R(s,t)=\lambda\min(s,t)+\lambda^2st$。
+特征函数 $\varphi_{t,u}=\exp\{\lambda t(e^{ju}-1)\}$。
+
+\Hi{定理2.3.3} 到达间隔 $\{T_n\}$ i.i.d.\ 且 $\sim \mathrm{Exp}(\lambda)$，$E\{T\}=1/\lambda$，$F_T(t)=1-e^{-\lambda t}$。
+\Hi{定理2.3.4} 等待时间 $W_n=\sum_{i=1}^nT_i\sim\Gamma(n,\lambda)$，$f_{W_n}(t)=\dfrac{\lambda^nt^{n-1}}{(n-1)!}e^{-\lambda t}$（指数分布不具可加性）。
+关系：$\{N(t)\ge n\}=\{W_n\le t\}$，$\{N(t)=n\}=\{W_n\le t<W_{n+1}\}$。
+
+\Hi{定理2.3.5（条件分布）} 已知 $N(t)=n$，则 $n$ 次到达时刻的联合条件密度
+$$f(t_1,\dots,t_n\mid N(t)=n)=\frac{n!}{t^n},\quad 0<t_1<\cdots<t_n<t;$$
+即 $W_1,\dots,W_n$ 与 $n$ 个独立 $U(0,t)$ 的顺序统计量同分布，$\sum_{k=1}^n W_k\stackrel{d}{=}\sum_{k=1}^nU_{(k)}$。
+（推论：$P\{W_1\le s\mid N(t)=1\}=s/t$，条件密度 $1/t$，$0\le s\le t$。）
+
+\Hi{概率积分变换} $X\sim F\Rightarrow Y=F(X)\sim U(0,1)$；$X\sim U(0,1)\Rightarrow Z=F^{-1}(X)\sim F$（逆变换采样；$F$ 连续严格单调时 $Y=F(X)$ 服从 $U(0,1)$）。
+
+\Hi{泊松过程的推广}
+① 稀释（ thinning）：$Y_n=1$ 当第 $n$ 次事件属子集，否则 $0$；则 $M(t)=\sum Y_n\sim P(\lambda pt)$。
+② 叠加：$N_1+N_2\Rightarrow P(\lambda_1+\lambda_2)$；$N_1-N_2$ \emph{不是}泊松过程。
+③ 非齐次泊松：$N(0)=0$，$P\{N(t+\Delta t)-N(t)=1\}=\lambda(t)\Delta t+o(\Delta t)$，$P\{\ge2\}=o(\Delta t)$；累积强度 $m(t)=\int_0^t\lambda(s)\dd s$，
+$$P\{N(t_0+t)-N(t_0)=k\}=\frac{(\Delta m)^k}{k!}e^{-\Delta m}$$
+$$\Delta m=m(t_0+t)-m(t_0)$$
+④ \Def{更新过程2.4.1} $W_n=\sum_{i=1}^nT_i$，$N(t)=\sup\{n:W_n\le t\}$；结论1：$F_n(t)=1-F_N(t)^{n-1}$，$P\{N(t)=n\}=F_n-F_{n+1}$；结论2：$\varphi_W(u)=[\varphi_T(u)]^n$。
+\Hi{定理2.4.1} 更新过程是泊松过程 $\iff$ 间距服从指数分布。
+⑤ \Def{复合泊松2.4.3} $X(t)=\sum_{n}Y_n$（$Y_n$ i.i.d.），$\varphi_X(t,u)=\exp\{\lambda t[\varphi_{Y_1}(u)-1]\}$，$m=\lambda t\,E(Y_1)$，$D=\lambda t\,E(Y_1^2)$。
+
+
+\Sub{2.4 泊松过程的模拟与典型应用}
+\Hi{模拟步骤} ① 由 $U\sim U(0,1)$ 生成 $T_1=-\frac1\lambda\ln(1-U)\sim \mathrm{Exp}(\lambda)$；② 独立重复生成 $T_2,T_3,\dots$；③ $W_n=\sum_{i=1}^nT_i$；④ $N(t)=\sup\{n:W_n\le t\}$。
+\Hi{应用} ① 排队系统（顾客到达为泊松过程，到达间隔为指数分布）；② 影院观众等待时间总和的期望：
+$\E\Big[\sum_{k=1}^{N(t)}(t-W_k)\Big]=\dfrac12\,\E[N(t)]=\dfrac{\lambda t^2}{2}$；③ 复合泊松：每辆公交车载客数 $\xi_n$，路口通过人数 $X(t)=\sum\xi_n$；
+④ 股票价格变化 $X(t)=\sum\delta_n$；⑤ 保险赔款。
+
+\Sub{2.5 常见误区的辨析}
+\begin{itemize}
+\item $N(t)\sim P(\lambda t)$（一维分布）\emph{不能}推出增量平稳；必须用"等价定义定理2.3.2"。
+\item $N(t)$ 与 $W_n$ \emph{不独立}（$\{N(t)\ge n\}=\{W_n\le t\}$）。
+\item 泊松过程均方连续、均方可积，但\emph{均方不可微}（$R(t,t)=\lambda t$ 在对角线上不可微）。
+\item 泊松过程不是正态过程；维纳过程既是正态过程也是平稳独立增量过程。
+\item 白噪声（连续）$R(s,t)=\sigma^2\delta(s-t)$：$R(0)=\infty$，不是普通二阶矩过程，只能作广义过程。
+\end{itemize}
+
+
+\Sub{2.6 正态过程与维纳过程的细节补充}
+\Hi{正态过程的线性性} 若 $X,Y$ 独立正态过程，$Z=\alpha X+\beta Y$ 仍正态，$\mu_Z=\alpha\mu_X+\beta\mu_Y$，$B_Z=\alpha^2B_X+\beta^2B_Y$；若不独立则 $B_Z=\alpha^2B_X+\beta^2B_Y+\alpha\beta(B_{XY}+B_{YX})$。
+\Hi{条件正态} $X,Y$ 联合正态 $\Rightarrow$ $Y\mid X=x\sim N\big(\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1),\ \sigma_2^2(1-\rho^2)\big)$；$X,Y$ 独立 $\iff\rho=0$。
+\Hi{正态过程的性质} 有限维分布全由 $m(t)$、$C(s,t)$ 决定；故高斯过程可由二阶矩过程"正态化"得到。
+
+\Hi{维纳过程的马尔可夫性} 对 $0\le s<t_1<t_2$，$E[W_{t_2}\mid W_{t_1}]=W_{t_1}$，$D(W_{t_2}\mid W_{t_1})=\sigma^2(t_2-t_1)$；
+即 $W_t$ 关于 $\{W_s,s\le t\}$ 构成马尔可夫链（独立增量性直接给出）。
+\Hi{维纳过程的联合密度} $t_1<\cdots<t_n$ 时
+$$f=\frac{1}{(2\pi\sigma^2)^{n/2}\prod_{k=1}^n(t_k-t_{k-1})}
+$$\cdot\exp\!\Big\{-\frac1{2\sigma^2}\sum_{k=2}^n\frac{(x_k-x_{k-1})^2}{t_k-t_{k-1}}\Big\}.$$
+\Hi{随机游动逼近} $S_n=\sum X_k$（$X_k=\pm1$ 等概率），$X_t=\Delta x\,S_{[t/\Delta t]}$，取 $\Delta x=c\sqrt{\Delta t}$ 则 $X_t\Rightarrow N(0,c^2t)$（泛函中心极限定理，Donsker）。
+
+\Sub{2.7 泊松过程的性质补充}
+\Hi{计数过程的可加性} $N_1+N_2\Rightarrow P(\lambda_1+\lambda_2)$（独立叠加）；$N_1-N_2$ 不是泊松过程（含负值可能）。
+\Hi{泊松过程与更新过程} $T_n\overset{ind}{\sim}\mathrm{Exp}(\lambda)$，$W_n=\sum T_i\sim\Gamma(n,\lambda)$；泊松过程是更新过程的特例（间距指数）。
+\Hi{泊松过程的两个维分布} 对 $s<t$：
+$$P\{N(s)=j,N(t)=k\}=\frac{(\lambda s)^j}{j!}e^{-\lambda s}
+$$\cdot\frac{[\lambda(t-s)]^{k-j}}{(k-j)!}e^{-\lambda(t-s)}\ (0\le j\le k)$$
+\Hi{泊松过程与随机相位} $X(t)=(-1)^{N(t)}$（随机电报信号）：$E X(t)=e^{-2\lambda t}$，$R_X(\tau)=C^2e^{-2\lambda|\tau|}$。
+
+
+\Sub{2.8 正态过程的判别与构造}
+\Hi{正态过程的判别法} 二阶矩过程为正态过程 $\iff$ 任一有限维联合分布为多元正态 $\iff$ 其特征函数形如 $\exp\{j\sum m_kt_k-\frac12\sum b_{k\ell}t_kt_\ell\}$。
+\Hi{构造正态过程} 由任意二阶矩过程 $Y(t)$（$E|Y(t)|^2<\infty$）与标准正态向量 $\xi$：$X(t)=m(t)+\sum_k a_k(t)\xi_k$（无穷维和需收敛条件）可得正态过程。
+\Hi{高斯白噪声} 均值 0、$R(s,t)=\sigma^2\delta(s-t)$ 的广义高斯过程；有限维分布为多元正态 $N(0,\sigma^2I)$。
+\Hi{高斯过程回归} 把未知函数视为高斯过程，观测数据更新后验 $\Rightarrow$ 预测的均值与置信区间（贝叶斯非参数方法）。
+
+\Sub{2.9 泊松过程的更多结论与推导要点}
+\Hi{定理2.3.3 的证明思路} ① $P\{T_1>t\}=P\{N(t)=0\}=e^{-\lambda t}$ $\Rightarrow$ $T_1\sim\mathrm{Exp}(\lambda)$；
+② $P\{T_2>t\mid T_1=s\}=P\{N(t+s)-N(s)=0\}=P\{N(t)=0\}=e^{-\lambda t}$（用独立增量 + 平稳增量），与 $s$ 无关 $\Rightarrow$ $T_2\perp T_1$ 且同分布；
+③ 一般地 $P\{T_n>t\mid T_i=r_i\}=e^{-\lambda t}$ $\Rightarrow$ i.i.d.\ 指数分布。
+\Hi{等待时间的分布} $F_{W_n}(t)=P\{N(t)\ge n\}=\sum_{k=n}^{\infty}\frac{(\lambda t)^k}{k!}e^{-\lambda t}$；
+$f_{W_n}(t)=\dfrac{\lambda^nt^{n-1}}{(n-1)!}e^{-\lambda t}$；$E W_n=\frac n\lambda$，$D W_n=\frac n{\lambda^2}$。
+\Hi{泊松过程的鞅性} $N(t)-\lambda t$ 是鞅（$E[N(t)-\lambda t\mid N(s)]=N(s)-\lambda s$）。
+\Hi{泊松过程的到达时刻模拟} 由定理2.3.5，$N(t)=n$ 时到达时刻为 $n$ 个独立 $U(0,t)$ 的顺序统计量。
+
+\Sub{2.10 复合泊松与非齐次泊松的深入}
+\Hi{复合泊松的定义2.4.3} $\{N(t)\}$ 为齐次泊松，$\{Y_n\}$ i.i.d.\ 且与 $N$ 独立，$X(t)=\sum_{n\ge1}Y_n$。
+$$m_X(t)=\lambda t\,E(Y_1),\quad D_X(t)=\lambda t\,E(Y_1^2),$$
+$$\varphi_X(t,u)=\exp\{\lambda t[\varphi_{Y_1}(u)-1]\}.$$
+\Hi{非齐次泊松（速率函数 $\lambda(t)$）} $m(t)=\int_0^t\lambda(s)\dd s$；
+$$P\{N(t_0+t)-N(t_0)=k\}=\frac{(\Delta m)^k}{k!}e^{-\Delta m}$$
+$$\Delta m=m(t_0+t)-m(t_0)$$
+（无增量平稳性；到达率为时间函数。）
+\Hi{独立复合泊松的叠加} $X(t)=\sum_{i=1}^{N_1(t)}Y_i+\sum_{j=1}^{N_2(t)}Z_j$，$N_1,N_2$ 独立泊松 $\Rightarrow$ 复合泊松，强度 $\lambda_1+\lambda_2$，$m=\lambda_1tE(Y_1)+\lambda_2tE(Z_1)$。
+
+\Sub{2.11 维纳过程的进一步性质与常用结论}
+\Hi{高斯矩公式} $\E W_t^{2n}=\sigma^{2n}t^n(2n-1)!!$，$\E W_t^{2n+1}=0$；$\E W_t^2=\sigma^2t$，$D(W_t)=\sigma^2t$。
+\Hi{仍是维纳过程} $W(t+a)-W(a)$；$cW(t^2)$（$c>0$）；$-W(t)$；$tW(1/t)$（$t>0$）。
+\Hi{马尔可夫性} $E[W_{t_2}\mid W_{t_1}]=W_{t_1}$，$D(W_{t_2}\mid W_{t_1})=\sigma^2(t_2-t_1)$，$0\le s<t_1<t_2$。
+\Hi{维纳过程的鞅性} $W_t$ 是鞅：$E[W_t\mid\{W_s,s\le t\}]=W_s$；$W_t^2-\sigma^2t$ 也是鞅。
+\Hi{平方与倒数变换} $X(t)=W^2(t)$：$m_X(t)=\sigma^2t$，$R_X(s,t)=\sigma^4\big[st+2\min^2(s,t)\big]$；$X(t)=tW(1/t)$：$m_X=0$，$R_X(s,t)=\sigma^2\min(s,t)$（与 $W$ 同分布）。
+\Hi{随机游动逼近（Donsker）} $S_n=\sum X_k$（$X_k=\pm1$ 等概率），$X_t=\Delta x\,S_{[t/\Delta t]}$，取 $\Delta x=c\sqrt{\Delta t}$ 则 $X_t\Rightarrow N(0,c^2t)$。
+\Hi{维纳增量与 $\chi^2$ 分布} $W_1-W_0,\dots,W_n-W_{n-1}$ 独立 $N(0,\sigma^2)$；$\sum_{i=1}^n(W_i-W_{i-1})^2/\sigma^2\sim\chi^2(n)$。
+\Hi{首次到达时刻} $\tau_a=\inf\{t:W_t=a\}$：$P\{\tau_a\le t\}=P\{\sup_{s\le t}W_s\ge a\}=2\big[1-\Phi\big(\tfrac{a}{\sigma\sqrt t}\big)\big]$。
+\Hi{零点的分布} $P\{W_t=0\}=0$（$t>0$），但 $\lim_{t\to0}P\{W_t=0\}=1$（连续性但概率不连续）。
+
+\Sub{2.12 泊松过程与复合泊松的典型应用与数值}
+\Hi{排队系统} 顾客到达为泊松过程、到达间隔指数分布；队长 $N(t)$ 即泊松过程；等待时间 $\Gamma(n,\lambda)$。
+\Hi{影院问题} $\E\Big[\sum_{k=1}^{N(t)}(t-W_k)\Big]=\dfrac12\E[N(t)]=\dfrac{\lambda t^2}{2}$（所有顾客等待时间之和的期望）。
+\Hi{公交车乘客} 每辆车载客数 $\xi_n$ i.i.d.，路口通过人数 $X(t)=\sum\xi_n$ 为复合泊松；$\E X(t)=\lambda t\E\xi_1$。
+\Hi{保险赔款} 索赔次数 $\sim P(\lambda t)$、每次索赔额 $\xi_k$ i.i.d. $\Rightarrow$ 复合泊松；$\D X(t)=\lambda t\E\xi_1^2$。
+\Hi{股票/价格变化} $X(t)=\sum\delta_n$（复合泊松），$\varphi_X(u)=\exp\{\lambda t[\varphi_\delta(u)-1]\}$。
+\Hi{泊松过程的鞅性} $N(t)-\lambda t$ 是鞅：$E[N(t)-\lambda t\mid N(s)]=N(s)-\lambda s$。
+\Hi{到达时刻模拟} 由定理2.3.5，$N(t)=n$ 时到达时刻为 $n$ 个独立 $U(0,t)$ 的顺序统计量；$P\{W_1\le s\mid N(t)=1\}=s/t$。
+
+\Sub{2.13 泊松过程常用计算示例}
+\Hi{EX.3（二维分布，$0<s<\tau$）} $P\{N(s)=k,N(\tau)=n\}=\binom nk\big(\tfrac s\tau\big)^k\big(1-\tfrac s\tau\big)^{n-k}$（$0\le k\le n$）
+（推导：$P\{N(\tau)=n\}\cdot\frac{\binom nk s^k(\tau-s)^{n-k}}{\tau^n}$。）
+\Hi{EX.5（$N_1-N_2$ 不是泊松过程）} $m_Y(t)=(\lambda_1-\lambda_2)t$，
+$R_Y(s,t)=(\lambda_1+\lambda_2)\min(s,t)+(\lambda_1^2+\lambda_2^2-2\lambda_1\lambda_2)st$；
+特征函数 $\varphi_Y(u)=\exp\{(\lambda_1-\lambda_2)tu-(\lambda_1+\lambda_2)t\}\ne e^{(\lambda_1+\lambda_2)t(e^{ju}-1)}$ $\Rightarrow$ 不是泊松过程。
+\Hi{EX（叠加是泊松过程）} $X(t)=N_1(t)+N_2(t)$，$N_1,N_2$ 独立 $\Rightarrow$ $X$ 是强度 $\lambda_1+\lambda_2$ 的泊松过程（唯一性定理）。
+\Hi{稀释的证明要点} $Y_n=1_{\{\text{第}n\text{次事件被保留}\}}$（保留概率 $p$），$P\{Y_n=1\}=p$、相互独立；全概率公式给出 $M(t)=\sum_nY_n\sim P(\lambda pt)$。
+\Hi{售票处例} 到达率 $\lambda=10$/小时，9:00 到 10:00 之间（以 8:00 为 0 时刻）$P\{N(2)-N(1)\le5\}=\sum_{k=0}^5e^{-10}\frac{10^k}{k!}$，$P\{N(3)-N(2)=0\}=e^{-10}$。
+\Hi{保险赔付例} 每月平均 4 次索赔（$\lambda=4$）、每次赔付 1 元，一年（12 个月）总赔付期望 $=4\times12\times1=48$ 元。
+
+\end{multicols}
+\end{document}

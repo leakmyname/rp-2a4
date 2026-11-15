@@ -1,0 +1,150 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\input{preamble}
+\begin{document}
+\Sec{第4章 平稳随机过程：概念·自相关函数·均方遍历·谱分析}
+
+\Sub{4.1 平稳性}
+\Def{宽（广义/弱）平稳} $m(t)=m$（常数），$C(s,t)=C(s-t)=C(\tau)$；实平稳时 $R(s,t)=R(\tau)$ 亦成立，$D=C(0)$ 常数。
+\Def{严（狭义/强）平稳} 有限维分布族平移不变：$F_{t_1\cdots t_n}(x_1,\dots,x_n)=F_{t_1+\tau,\dots,t_n+\tau}(x_1,\dots,x_n)$。
+\begin{center}\footnotesize
+\begin{tabular}{p{1.86cm}p{3.27cm}p{3.50cm}}\hline
+ & 宽平稳 & 严平稳\\\hline
+条件 & 均值常数、协方差只依赖时间差 & 任意阶联合分布平移不变\\
+强弱 & 弱 $\Rightarrow$ 强不成立 & 强 $\nRightarrow$ 弱\\
+等价 & \multicolumn{2}{l}{对\textbf{正态（高斯）过程}两者等价（定理4.1.2）}\\\hline
+\end{tabular}\end{center}
+典型平稳过程：i.i.d.\ 序列、随机相位正弦波、高斯白噪声；非平稳：随机幅值信号、随机频率信号。
+
+\Sub{4.2 自相关函数的性质}
+\Hi{定理4.2.1} 复平稳过程的自相关函数 $R_X(\tau)$：
+① $R_X(0)=E[X(t)X^*(t)]=E|X(t)|^2\ge0$；
+② \emph{有界性} $|R_X(\tau)|\le R_X(0)$（实平稳：$R_X(\tau)\le R_X(0)$）；
+③ \emph{偶函数} $R_X(-\tau)=R_X(\tau)$（实值情形）；复情形 $R_X(-\tau)=R_X^*(\tau)$；
+④ \emph{非负定性} $\displaystyle\sum_{k=1}^n\sum_{j=1}^nR_X(t_k-t_j)\alpha_k\alpha_j^*\ge0$。
+推论1：实平稳过程同样满足以上四条。
+\Hi{定理4.2.2} 周期为 $L$ 的周期平稳过程 $\Rightarrow$ $R_X(\tau+L)=R_X(\tau)$；逆定理：若 $R_X(L)=R_X(0)$（$L>0$）则 $P\{X(t+L)=X(t)\}=1$（可用相关函数判周期）。
+\Hi{引理（重要公式）} 实平稳过程：
+$$\E\big[X(t)-X(t_0)\big]^2=2\big[R_X(0)-R_X(t-t_0)\big],$$
+$$\lim_{t\to t_0}\E\big[X(t)-X(t_0)\big]^2=0\iff \text{均方连续}.$$
+\Hi{定理4.2.4（均方连续性）} 实平稳过程均方连续 $\iff$ $R_X(\tau)$ 在 $\tau=0$ 处连续；此时 $R_X(\tau)$ 处处连续。
+\Hi{定理4.2.5（均方可导性）} 实平稳过程均方可微 $\iff$ $R_X(\tau)$ 在 $\tau=0$ 处二次可微。若可微：导数过程仍平稳，$m_{X'}=0$，$R_{X'}(\tau)=-R_X''(\tau)$，$R_{XX'}(\tau)=R_X'(\tau)$，$R_{X'X}(\tau)=-R_X'(\tau)$。
+推论1：$D[X'(t)]=E[X'(t)]^2=-R_X''(0)$；推论2：$X(t)$ 与 $X'(t)$ 不相关；推论3：若为实正态平稳过程，则 $X(t)$ 与 $X'(t)$ 独立。
+\Hi{定理4.2.6} 均方连续平稳过程：$E\big[\int X(s)\dd s\int X(t)\dd t\big]=\iint R_X(t-s)\dd s\dd t$；实平稳时 $E\big[\int_a^bX(t)\dd t\big]=m_X(b-a)$，$D\big[\int_a^bX(t)\dd t\big]=2\int_a^b(b-\tau)R_X(\tau)\dd\tau$。
+
+\Hi{互相关与联合平稳} $X,Y$ 联合平稳 $\iff$ $R_{XY}(t,t+\tau)=E\{X(t)Y(t+\tau)\}=R_{XY}(\tau)$。
+\Hi{定理4.2.3} $R_{XY}(\tau)=R_{YX}(-\tau)$（实平稳）；$R_{\alpha X+\beta Y}(\tau)=\alpha R_X(\tau)+\alpha\beta R_{XY}(\tau)+\bar\alpha\bar\beta R_{YX}(\tau)+\bar\beta R_Y(\tau)$。
+
+\Hi{两个典型例}
+① 随机二元传输信号：$R_X(\tau)=\begin{cases}1-\dfrac{|\tau|}{T},&|\tau|<T\\[2pt]0,&\tau\ge T\end{cases}$
+② 随机电报信号：变号次数 $N(t)$ 为强度 $\lambda$ 的泊松过程，$X(t)=X_0(-1)^{N(t)}$，$X_0=\pm C$ 与 $N$ 独立，
+$$R_X(\tau)=C^2e^{-2\lambda|\tau|}.$$
+③ 随机相位余弦：$X(t)=A\cos(\omega t+\Theta)$，$\Theta\sim U(-\pi,\pi)$ $\Rightarrow$ $m_X=0$，$R_X(\tau)=\tfrac{A^2}{2}\cos\omega\tau$。
+
+\Sub{4.3 均方遍历性（各态历经性）}
+\Def{定义4.3.1（时间平均）} $X(t)=\lima_{T\to\infty}\frac1{2T}\int_{-T}^{T}X(t)\dd t$（均方极限存在）；时间自相关 $\lima\frac1{2T}\int_{-T}^{T}X(t)X(t+\tau)\dd t$。
+（要求 $\{X(t)\}$ 在任意有限区间上均方可积。）
+\Def{定义4.3.2（各态历经）} 平稳过程若满足 $P\{X(t)=m_X\}=1$、$\lima\frac1{2T}\int_{-T}^{T}X(t)\dd t=m_X$（a.s.），且对任意 $\tau$：$X(t)X(t+\tau)=R_X(\tau)$ a.s.、$\lima\frac1{2T}\int_{-T}^{T}X(t)X(t+\tau)\dd t=R_X(\tau)$（a.s.），则称均方遍历（各态历经）。
+\Hi{定理4.3.1（复平稳，均值各态历经）} 充要条件：
+$$\lim_{T\to\infty}\frac1{2T}\int_{-T}^{T}\left(1-\frac{|\tau|}{T}\right)\big(R_X(\tau)-m_X\big)\dd\tau=0.$$
+\Hi{定理4.3.2（实平稳，均值各态历经）} 充要条件：
+$$\lim_{T\to\infty}\frac1{2T}\int_{-T}^{T}\Big(1-\frac{|\tau|}{T}\Big)\Big[C_X(\tau)-m_X^2\Big]\dd\tau=0,$$
+其中 $C_X(\tau)=R_X(\tau)-m_X^2$ 为协方差函数。
+\Hi{推论1} 若 $\int_{-\infty}^{\infty}|C_X(\tau)|\dd\tau<\infty$ $\Rightarrow$ 均值各态历经。
+\Hi{推论2} 若 $\lim_{\tau\to\infty}R_X(\tau)=m_X^2$（或 $\lim C_X(\tau)=0$）$\Rightarrow$ 均值各态历经。
+\Hi{定理4.3.3（自相关各态历经）} 均方连续平稳过程，对固定 $\tau$，$\{X(t)X(t+\tau)\}$ 也均方连续平稳，则自相关各态历经 $\iff$
+$$\lim_{T\to\infty}\frac1{2T}\int_{-T}^{T}\Big(1-\frac{|u|}{T}\Big)\big[B(u)-R_X^2(\tau)\big]\dd u=0,$$
+其中 $B(u)=E\{X(t)X(t+\tau)X(t+u)X(t+\tau+u)\}$。
+\Hi{定理4.3.4} 实平稳情形用 $Z_R(u)=B(u)$ 的同一形式。
+注（正态）：四维正态时 $E(X_1X_2X_3X_4)=E(X_1X_2)E(X_3X_4)+E(X_1X_3)E(X_2X_4)+E(X_1X_4)E(X_2X_3)$；
+实平稳正态过程若 $\lim_{\tau\to\infty}R_X(\tau)=0$ $\Rightarrow$ 相关函数各态历经。
+\Hi{估计应用} 均值各态历经 $\Rightarrow$ $m_X=\lima_{T\to\infty}\frac1T\int_0^TX(t)\dd t$（a.s.）；
+$R_X(r\Delta t)$ 的估计量 $\hat R_X(r\Delta t)=\dfrac{1}{N-r}\sum_{k=1}^{N-r}X(k\Delta t)X((k+r)\Delta t)$。
+
+\Sub{4.4 谱分析}
+Fourier 变换（确定性信号 $x(t)$）：$F_x(\omega)=\int_{-\infty}^{\infty}x(t)e^{-j\omega t}\dd t$，$x(t)=\frac1{2\pi}\int_{-\infty}^{\infty}F_x(\omega)e^{j\omega t}\dd\omega$；共轭对称 $F_x(-\omega)=F_x^*(\omega)$。
+\Hi{Parseval（巴塞瓦尔）公式} $\displaystyle\int_{-\infty}^{\infty}|x(t)|^2\dd t=\frac1{2\pi}\int_{-\infty}^{\infty}|F_x(\omega)|^2\dd\omega$（$|F_x|^2$ 为能谱密度）。
+截断 $x_T(t)=x(t),\ |t|\le T$：$F_x(\omega,T)=\int_{-T}^{T}x(t)e^{-j\omega t}\dd t$，Parseval 仍成立。
+
+\Hi{平稳过程的谱密度} $F_X(\omega,T)=\int_{-T}^{T}X(t)e^{-j\omega t}\dd t$，
+$$\lim_{T\to\infty}\frac1{2T}\int_{-T}^{T}\E|X(t)|^2\dd t=R_X(0)=E[X^2(t)],$$
+$$\boxed{R_X(0)=\frac1{2\pi}\int_{-\infty}^{\infty}S_X(\omega)\dd\omega,\quad S_X(\omega)\ge0}$$
+$$S_X(\omega)=\lim_{T\to\infty}E\big[|F_X(\omega,T)|^2\big]$$
+（平均功率的谱表示式）。
+\Hi{定理4.4.1（维纳--辛钦）} 均方连续平稳过程，$E[X(t)]=0$，$\int|R(\tau)|\dd\tau<\infty$，则
+$$S_X(\omega)=\int_{-\infty}^{\infty}R(\tau)e^{-j\omega\tau}\dd\tau,$$
+$$R(\tau)=\frac1{2\pi}\int_{-\infty}^{\infty}S_X(\omega)e^{j\omega\tau}\dd\omega\ (\text{谱分解式}).$$
+实平稳时 $S_X(\omega)=\frac1\pi\int_{-\infty}^{\infty}R(\tau)\cos\omega\tau\dd\tau$（偶函数）。
+\Hi{定理4.4.4（谱函数）} $F_X(\omega)=\int_{-\infty}^{\omega}S_X(\omega_1)\dd\omega_1$；定理4.4.3（维纳--辛钦）：$R_X(\tau)=\frac1{2\pi}\int e^{j\omega\tau}\dd F_X(\omega)$。
+\Hi{定理4.4.6} ① $S_X(\omega)$ 为实值非负偶函数；② $S_X(-\omega)=S_X(\omega)$。
+\Hi{性质对照} 位移性质、对称性、微分性质、卷积性（相关函数与谱密度互为 Fourier 变换对）。
+\Hi{例} $S_X(\omega)=\sigma^2\delta(\omega)$（白噪声）$\Rightarrow R_X(\tau)=\frac{\sigma^2}{2\pi}$（常数）。
+$R_X(\tau)=\sigma^2\cos a\tau\Rightarrow S_X(\omega)=\pi\sigma^2\big[\delta(\omega-a)+\delta(\omega+a)\big]$。
+
+
+\Sub{4.5 平稳过程的谱分析深入}
+\Hi{谱密度与相关函数的对照性质} 位移性质：$R(\tau)\leftrightarrow S(\omega)$；对称性：$R$ 偶 $\Leftrightarrow S$ 实偶；
+微分性质：$R'(\tau)\leftrightarrow j\omega S(\omega)$；卷积性：时域卷积 $\leftrightarrow$ 频域相乘。
+\Hi{自相关函数的可微性与谱密度} 若 $R_X(\tau)$ 在 $\tau=0$ 处二次可微（$\Rightarrow$ 均方可微），则 $R_{X'}(\tau)=-R_X''(\tau)$，$D[X'(t)]=-R_X''(0)\ge0$。
+\Hi{物理意义} $R_X(0)=\E X^2$ 是平均功率；$S_X(\omega)$ 是功率在频率上的分布，$\int S_X(\omega)\dd\omega=2\pi R_X(0)$（按 $1/2\pi$ 归一）。
+
+\Sub{4.6 均方遍历性的例子与判别步骤}
+\Hi{例1：$X(t)=Y$}（$D(Y)\ne0$）：平稳，$m_X=E(Y)$，$R_X(\tau)=E|Y|^2$；时间平均 $\lima\frac1{2T}\int_{-T}^TY\dd t=Y$，时间自相关 $=Y$；若 $Y$ 非单点分布，则 $P\{X(t)=E(X)\}\ne1$ $\Rightarrow$ \emph{不}均值各态历经。
+\Hi{例2：$X(t)=a\cos(\omega_0t+\Theta)$，$\Theta\sim U(0,2\pi)$}：$m_X=0$，$R_X(\tau)=a^2\cos\omega_0\tau$；
+$$\lim_{T\to\infty}\frac1{2T}\int_{-T}^{T}\Big(1-\frac{|\tau|}{T}\Big)C_X(\tau)\dd\tau=\lim_{T\to\infty}\frac{1-\cos(2\omega_0T)}{2T^2\omega_0^2}=0$$
+$\Rightarrow$ 均值各态历经；时间平均 $\lima\frac1{2T}\int_{-T}^Ta\cos(\omega_0t+\Theta)\dd t=0$。
+\Hi{例3：随机电报信号 $X(t)=X_0(-1)^{N(t)}$}：$m_X=0$，$R_X(\tau)=C^2e^{-2\lambda|\tau|}$；
+$\int_{-\infty}^{\infty}|C_X(\tau)|\dd\tau=2C^2\int_0^\infty e^{-2\lambda\tau}\dd\tau=\frac{C^2}{\lambda}<\infty$
+$\Rightarrow$ 由推论1，均值各态历经。
+\Hi{例4：$X(t)=A\cos(\omega t+\Theta)$}，$A,\omega,\Theta$ 独立，$\Theta\sim U(-\pi,\pi)$，$\omega\sim U(-5,5)$，$E(A)=0,D(A)=4$：
+$m_X=0$，$R_X(\tau)=\frac45\sin(5\tau)$（有界）$\Rightarrow\lim_{\tau\to\infty}R_X(\tau)=0=m_X^2$ $\Rightarrow$ 由推论2，均值各态历经。
+
+\Sub{4.7 遍历性判别的三步法}
+① 判断宽平稳（$m$ 常数、$C$ 只依赖时间差）；
+② 计算协方差 $C_X(\tau)=R_X(\tau)-m_X^2$；
+③ 检验 $\lim_{\tau\to\infty}C_X(\tau)=0$（充分条件，最常用）或 $\int|C_X(\tau)|\dd\tau<\infty$；或直接验证充要条件 $\lim\frac1{2T}\int(1-\frac{|\tau|}{T})C_X(\tau)\dd\tau=0$。
+
+\Sub{4.8 谱分析中的常用结论速查}
+\begin{center}\footnotesize
+\begin{tabular}{p{2.80cm}p{3.16cm}p{2.68cm}}\hline
+$R_X(\tau)$ & $S_X(\omega)$ & 说明\\\hline
+$\sigma^2$（白噪声） & $\sigma^2\delta(\omega)$ & 理想白噪声\\
+$\sigma^2e^{-\alpha|\tau|}$（OU） & $\dfrac{2\alpha\sigma^2}{\alpha^2+\omega^2}$ & 有理谱\\
+$\sigma^2\cos a\tau$ & $\pi\sigma^2[\delta(\omega-a)+\delta(\omega+a)]$ & 离散谱\\
+$\sigma^2\cos\omega_0\tau$ & $\pi\sigma^2[\delta(\omega-\omega_0)+\delta(\omega+\omega_0)]$ & 单频\\
+$1-|\tau|/T$，$|\tau|<T$ & $\dfrac{1-\cos\omega T}{\pi\omega^2}$ & 三角谱\\\hline
+\end{tabular}\end{center}
+\Hi{维纳--辛钦定理（定理4.4.1）} 条件：均方连续平稳过程、$E[X(t)]=0$、$\int|R(\tau)|\dd\tau<\infty$；
+结论：$S(\omega)=\int R(\tau)e^{-j\omega\tau}\dd\tau$，$R(\tau)=\frac1{2\pi}\int S(\omega)e^{j\omega\tau}\dd\omega$。
+\Hi{定理4.4.3（谱展式）} 存在谱函数 $F_X(\omega)$ 使 $R_X(\tau)=\frac1{2\pi}\int e^{j\omega\tau}\dd F_X(\omega)$，$F_X(-\infty)=0$，$F_X(+\infty)=2\pi R_X(0)$。
+\Hi{定理4.4.6} $S_X(\omega)$ 实值、非负、偶函数：$S_X(-\omega)=S_X(\omega)\ge0$。
+\Hi{定理4.4.2（波纳赫--辛钦）} $\psi(t)$ 为特征函数的充要条件：在 $\mathbb R$ 上一致连续、非负定、$\psi(0)=1$。
+
+\Sub{4.9 谱分析的计算示例与谱函数}
+\Hi{EX.1（白噪声谱）} $S_X(\omega)=\sigma^2\delta(\omega)$ $\Rightarrow R_X(\tau)=\frac{\sigma^2}{2\pi}$（常数），即理想白噪声的自相关为常数。
+\Hi{EX.2（单频谱）} $R_X(\tau)=\sigma^2\cos a\tau=\frac{\sigma^2}{2}(e^{ja\tau}+e^{-ja\tau})$ $\Rightarrow S_X(\omega)=\pi\sigma^2\big[\delta(\omega-a)+\delta(\omega+a)\big]$。
+\Hi{例（三角谱）} $R_X(\tau)=1-\frac{|\tau|}{T}$（$|\tau|<T$）$\Rightarrow S_X(\omega)=\dfrac{1-\cos\omega T}{\pi\omega^2}$。
+\Hi{例（OU 谱）} $R_X(\tau)=\sigma^2e^{-\alpha|\tau|}$ $\Rightarrow S_X(\omega)=\dfrac{2\alpha\sigma^2}{\alpha^2+\omega^2}$（有理谱）。
+\Hi{谱函数（定义4.4.1）} $F_X(\omega)=\int_{-\infty}^{\omega}S_X(\omega_1)\dd\omega_1$；$F_X(-\infty)=0$，$F_X(+\infty)=2\pi R_X(0)$。
+\Hi{谱展式（定理4.4.3）} $R_X(\tau)=\frac1{2\pi}\int_{-\infty}^{\infty}e^{j\omega\tau}\dd F_X(\omega)$。
+\Hi{定理4.4.5（三命题等价）} 均方连续平稳过程 $E[X(t)]=m$：① 均值各态历经 $\iff$ ② $R_X(\tau)$ 在 $T$ 上绝对连续 $\iff$ ③ 存在谱函数 $F_X$ 使 $R_X(\tau)=\frac1{2\pi}\int e^{j\omega\tau}\dd F_X(\omega)$。
+\Hi{实平稳推论} $S_X(\omega)=\frac1\pi\int_{-\infty}^{\infty}R(\tau)\cos\omega\tau\dd\tau$，$R_X(\tau)=\frac1\pi\int_{-\infty}^{\infty}S_X(\omega)\cos\omega\tau\dd\omega$。
+\Hi{复谐波叠加} $X(t)=\sum_{n=-\infty}^{\infty}Z_ne^{j\omega_nt}$，$\{Z_n\}$ 相互独立 $\Rightarrow$ 必为平稳过程（谱表示）。
+
+\Sub{4.10 平稳过程与遍历性的其他结论}
+\Hi{周期判别} 周期为 $L$ 的周期平稳过程 $\Rightarrow R_X(\tau+L)=R_X(\tau)$；逆：若 $R_X(L)=R_X(0)$（$L>0$）则 $P\{X(t+L)=X(t)\}=1$。
+\Hi{方差恒定} $D(s)=C(s,s)=C(0)=R_X(0)-|m|^2$（宽平稳的必然结论）。
+\Hi{均方可导推论} $D[X'(t)]=-R_X''(0)\ge0$；$X(t)$ 与 $X'(t)$ 不相关；实正态平稳时 $X(t)$ 与 $X'(t)$ 独立。
+\Hi{联合平稳（定义4.1.5）} $X,Y$ 联合平稳 $\iff R_{XY}(t,t+\tau)=E\{X(t)Y(t+\tau)\}=R_{XY}(\tau)$。
+\Hi{定理4.2.3} $R_{XY}(\tau)=R_{YX}(-\tau)$（实平稳）；$R_{\alpha X+\beta Y}(\tau)=\alpha R_X(\tau)+\alpha\beta R_{XY}(\tau)+\bar\alpha\bar\beta R_{YX}(\tau)+\bar\beta R_Y(\tau)$。
+\Hi{均方遍历的必要直观} 均值各态历经 $\Rightarrow$ 时间平均 $\lima\frac1{2T}\int_{-T}^TX(t)\dd t=m_X$（a.s.），即"一条样本轨道长时间扫描可替代总体平均"。
+\Hi{估计量} $R_X(r\Delta t)$ 的估计 $\hat R_X(r\Delta t)=\dfrac{1}{N-r}\sum_{k=1}^{N-r}X(k\Delta t)X((k+r)\Delta t)$。
+
+\Sub{4.11 谱分析常用结论的补充}
+\Hi{平均功率的谱表示} $R_X(0)=E[X^2(t)]$ 是平均功率，$R_X(0)=\frac1{2\pi}\int S_X(\omega)\dd\omega$（按 $1/2\pi$ 归一）。
+\Hi{相关函数与谱密度对照性质} 位移性质 $R(\tau)\leftrightarrow S(\omega)$；对称性 $R$ 偶 $\Leftrightarrow S$ 实偶；微分性质 $R'(\tau)\leftrightarrow j\omega S(\omega)$；卷积性：时域卷积 $\leftrightarrow$ 频域相乘。
+\Hi{自相关可微 $\Rightarrow$ 均方可微} 若 $R_X(\tau)$ 在 $\tau=0$ 处二次可微，则 $R_{X'}(\tau)=-R_X''(\tau)$，$D[X'(t)]=-R_X''(0)\ge0$。
+\Hi{谱展式的存在性} 定理4.4.3：均方连续平稳过程必存在谱函数 $F_X(\omega)$，$F_X(-\infty)=0$，$F_X(+\infty)=2\pi R_X(0)$，使 $R_X(\tau)=\frac1{2\pi}\int e^{j\omega\tau}\dd F_X(\omega)$。
+\Hi{复谐波表示} $X(t)=\sum_{n=-\infty}^{\infty}Z_ne^{j\omega_nt}$，$\{Z_n\}$ 相互独立 $\Rightarrow$ 必为平稳过程（谱表示法）。
+
+\end{multicols}
+\end{document}

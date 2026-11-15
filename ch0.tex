@@ -1,0 +1,176 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\input{preamble}
+\begin{document}
+\Sec{第0章 预备知识：概率空间·随机变量·R-S积分·数字特征·特征函数}
+
+\Sub{0.1 概率空间}
+三元体 $(\Omega,\mathcal F,P)$：样本空间 $\Omega$；$\sigma$-代数 $\mathcal F$（事件域）；概率测度 $P$。$(\Omega,\mathcal F)$ 称\emph{可测空间}。
+
+\Def{柯氏公理}：$P$ 定义在 $\mathcal F$ 上的实值函数满足
+① 非负性 $P(A)\ge 0$；② 规范性 $P(\Omega)=1$；
+③ 完全可加性 $A_i\in\mathcal F,\ A_iA_j=\varnothing\ (i\ne j)\Rightarrow P\big(\bigcup_{i=1}^\infty A_i\big)=\sum_{i=1}^\infty P(A_i)$。
+
+$\sigma$-代数性质：① $\varnothing\in\mathcal F$；② 对可列交封闭；③ 对有限并/有限交封闭；④ 对差运算封闭（$A-B=AB^c\in\mathcal F$）；⑤ 对补集封闭；⑥ 对可列并封闭。$(\Omega,\mathcal F)$ 必含 $\varnothing,\Omega$。由 $A$ 生成的最简单 $\sigma$-代数：$\{\varnothing,A,A^c,\Omega\}$。最小 $\sigma$-代数 $\{\varnothing,\Omega\}$，最大 $2^\Omega$。
+
+\Sub{0.2 随机变量及其分布}
+\Def{定义1.1.3} 设 $(\Omega,\mathcal F,P)$，$X(\omega)$ 是 $\Omega$ 上的单值实函数，若 $\forall x\in\mathbb R$，$\{\omega:X(\omega)\le x\}\in\mathcal F$，则 $X$ 是随机变量。
+推论：$\{X\le x\},\{X<x\},\{X=x\},\{X>x\},\{X\ge x\}\in\mathcal F$（用 $\mathcal F$ 的差与交封闭性）。
+
+分布函数 $F(x)=P\{X\le x\}$，性质：单调不减；$0\le F\le 1$；右连续 $F(x+0)=F(x)$；$\lim_{x\to-\infty}F(x)=0$，$\lim_{x\to+\infty}F(x)=1$。
+$P\{a<X\le b\}=F(b)-F(a)$。
+
+\Def{二维联合分布} $F(x,y)=P\{X\le x,\,Y\le y\}$；边缘 $F_X(x)=F(x,+\infty)$。
+
+\Def{条件分布}
+$$F_{Y|X}(y|x)=\lim_{\Delta x\to0}\frac{P\{Y\le y,\ x-\Delta x<X\le x+\Delta x\}}{P\{x-\Delta x<X\le x+\Delta x\}}$$
+密度关系 $f(x,y)=f_X(x)f_{Y|X}(y|x)$。
+独立 $\iff F(x,y)=F_X(x)F_Y(y)$（连续型：$f(x,y)=f_X(x)f_Y(y)$）。
+
+\Sub{0.3 R-S 积分（Lebesgue--Stieltjes）}
+R 积分：$\int f(x)\dd x$，以"长度"为尺度；R-S 积分 $\int f(x)\dd g(x)$ 以"质量增量"为尺度。
+
+\Def{定义1.1} 剖分 $a=x_0<x_1<\cdots<x_n=b$，任取 $x_k^*\in[x_k,x_{k+1}]$，
+$$\int_a^b f(x)\dd g(x)=\lim_{\lambda\to0}\sum_{k=0}^{n-1}f(x_k^*)\big[g(x_{k+1})-g(x_k)\big],$$
+$$\lambda=\max_k(x_{k+1}-x_k).$$
+
+性质：① 线性；② 区间可加（$a<c<b$ 时 $\int_a^b=\int_a^c+\int_c^b$）；
+③ $\displaystyle\int_a^b\alpha f(x)\dd[\beta g(x)]=\alpha\beta\int_a^b f(x)\dd g(x)$；
+④ \emph{分部积分} $\displaystyle\int_a^b f\,\dd g=[fg]_a^b-\int_a^b g\,\dd f$（两者之一存在则另一存在）。
+
+\Def{定理1.2} 若 $g'(x)$ 存在且在任意 $[a,b]$ 上黎曼可积，则 $\displaystyle\int f\dd g=\int f(x)g'(x)\dd x$。特别 $\displaystyle\int f(x)\dd F(x)=\int f(x)F'(x)\dd x$。
+
+\Def{定理1.3} 若 $g$ 在 $(C_k,C_{k+1}]$ 上取常数值，则
+$$\int_{-\infty}^{\infty}f(x)\dd g(x)=\sum_{k=-\infty}^{\infty}f(C_k)\big[g(C_k+0)-g(C_k-0)\big].$$
+离散型：$F(x+0)-F(x-0)=p_k\ (x=x_k)$，故 $\int x\,\dd F(x)=\sum_k x_kp_k=\E X$。
+
+\Sub{0.4 数字特征}
+$$\E X=\int_{-\infty}^{\infty}x\,\dd F(x)=\begin{cases}\int xf(x)\dd x&\text{连续}\\[1pt]\sum_k x_kp_k&\text{离散}\end{cases}$$
+$$\E[g(X)]=\int g(x)\dd F(x)$$
+$$D(X)=\E\big[(X-\E X)^2\big]=\int (x-\E X)^2\dd F(x)$$
+$$=\E X^2-[\E X]^2,\qquad \sigma_X=\sqrt{D(X)}$$
+\Cauchy--Schwarz：$\big\{\E[XY]\big\}^2\le \E[X^2]\E[Y^2]$，等号成立 $\iff P\{Y=aX+b\}=1$（$a,b$ 常数）。
+\Def{条件期望} $\E(Y|x)=\int y\,\dd F_{Y|X}(y|x)$。
+
+\Sub{0.5 特征函数}
+$$\varphi_X(u)=\E\big[e^{juX}\big]=\int_{-\infty}^{\infty}e^{jux}\,\dd F(x),\quad u\in\mathbb R.$$
+性质：$|\varphi_X(u)|\le1$；$\varphi_X(0)=1$；$\varphi_X$ 连续；特征函数与分布函数互相唯一确定（连续性定理）。
+变换性质：$\varphi_{g(X)}(u)=\int e^{jug(x)}\dd F(x)$；$\varphi_{aX+b}(u)=e^{jub}\varphi_X(au)$；
+高斯：$X\sim N(\mu,\sigma^2)\Rightarrow\varphi_X(u)=e^{j\mu u-\frac12\sigma^2u^2}$。
+\Hi{矩公式}：$E(X^k)=\dfrac{\varphi_X^{(k)}(0)}{j^k}$，$k\ge1$。
+独立：$X,Y$ 独立 $\iff\varphi_{X+Y}(u)=\varphi_X(u)\varphi_Y(u)$。
+
+
+\Sub{0.6 条件期望与条件方差（重点）}
+\Def{条件期望} $E(Y\mid X=x)=E(Y\mid X=x)=\displaystyle\int_{-\infty}^{\infty}y\,\dd F_{Y|X}(y\mid x)$；连续型 $=\int y f_{Y|X}(y\mid x)\dd y$。
+性质：$E(Y\mid X)=\mu(X)$ 是随机变量（回归曲线的随机化）；全期望公式 $E(Y)=E[E(Y\mid X)]$；
+条件方差 $D(X\mid Y=y)=E\{[X-E(X\mid Y=y)]^2\mid Y=y\}=\int[x-E(X\mid Y=y)]^2\,\dd F_{X|Y}(x\mid y)$；
+二维正态：$X\sim N(\mu_1,\sigma_1^2),Y\sim N(\mu_2,\sigma_2^2)$，相关系数 $\rho$，
+令 $u=\frac{x-\mu_1}{\sigma_1},\ v=\frac{y-\mu_2}{\sigma_2},\ \rho=\rho_{XY}$，则
+$$f(x,y)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}\exp\!\Big\{-\frac{u^2-2\rho uv+v^2}{2(1-\rho^2)}\Big\}$$
+条件分布：$Y\mid X=x\sim N\big(\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1),\ \sigma_2^2(1-\rho^2)\big)$，故 $E(Y\mid X=x)=\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1)$（回归直线）。
+
+\Sub{0.7 常用分布与特征函数速查}
+\begin{center}\footnotesize
+\begin{tabular}{p{1.34cm}p{2.42cm}p{2.66cm}p{2.06cm}}\hline
+分布 & 概率密度/分布律 & 数字特征 & 特征函数 $\varphi(t)$\\\hline
+单点 & $P\{X=c\}=1$ & $E=c,D=0$ & $e^{jct}$\\
+二项 $B(n,p)$ & $P=\binom nkp^k(1-p)^{n-k}$ & $np,\ np(1-p)$ & $(q+pe^{jt})^n$\\
+泊松 $P(\lambda)$ & $P=\frac{\lambda^k}{k!}e^{-\lambda}$ & $\lambda,\lambda$ & $e^{\lambda(e^{jt}-1)}$\\
+均匀 $U[a,b]$ & $1/(b-a)$ & $\frac{a+b}2,\frac{(b-a)^2}{12}$ & $e^{j(a+b)t/2}\mathrm{sinc}$\\
+指数 $Exp(\lambda)$ & $\lambda e^{-\lambda x}$ & $1/\lambda,\ 1/\lambda^2$ & $\frac{\lambda}{\lambda-jt}$\\
+几何 & $P\{X=k\}=pq^{k-1}$ & $1/p,\ (1-p)/p^2$ & $\frac{pe^{jt}}{1-qe^{jt}}$\\
+正态 $N(\mu,\sigma^2)$ & $\frac{e^{-(x-\mu)^2/2\sigma^2}}{\sqrt{2\pi}\sigma}$ & $\mu,\sigma^2$ & $e^{j\mu t-\sigma^2t^2/2}$\\\hline
+\end{tabular}\end{center}
+\Def{单调函数公式法} $Y=g(X)$，$g$ 处处可导且 $g'>0$（或 $<0$），$x=h(y)$ 为反函数：
+$$f_Y(y)=f_X(h(y))\,|h'(y)|$$
+$$\alpha=\min(g(a),g(b)),\quad \beta=\max(g(a),g(b))$$
+\Hi{卷积公式} $X,Y$ 独立：$f_{X+Y}(z)=\displaystyle\int_{-\infty}^{\infty}f_X(x)f_Y(z-x)\dd x$；离散：$P\{X+Y=k\}=\sum_iP\{X=i\}P\{Y=k-i\}$。
+
+\Sub{0.8 反演公式与唯一性}
+\Def{定理3.3（反演公式）} 对 $F(x)$ 的任意连续点 $x_1<x_2$：
+$$F(x_2)-F(x_1)=\lim_{T\to\infty}\frac1{2\pi}\int_{-T}^{T}\frac{e^{-jtx_2}-e^{-jtx_1}}{-jt}\varphi(t)\dd t.$$
+推论1（唯一性定理）：$F_1\equiv F_2\iff\varphi_1\equiv\varphi_2$。
+推论2：若 $\varphi(t)$ 在 $\mathbb R$ 上绝对可积，则 $X$ 为连续型，$f(x)=\frac1{2\pi}\int_{-\infty}^{\infty}e^{-jtx}\varphi(t)\dd t$（互为 Fourier 变换对）。
+推论3（离散型）：$p_k=\frac1{2\pi}\int_{-\infty}^{\infty}e^{-jkt}\varphi(t)\dd t$。
+\Hi{波赫纳--辛钦定理} 函数 $\varphi(t)$ 是特征函数的充要条件：在 $\mathbb R$ 上一致连续、非负定、$\varphi(0)=1$。
+\Hi{卷积性质} $X,Y$ 独立 $\iff\varphi_{X+Y}(t)=\varphi_X(t)\varphi_Y(t)$。
+
+
+\Sub{0.9 随机变量函数的分布（公式汇总）}
+\begin{center}\footnotesize
+\begin{tabular}{p{1.87cm}p{4.23cm}p{2.53cm}}\hline
+情形 & 公式 & 条件\\\hline
+$Y=g(X)$ 单调 & $f_Y(y)=f_X(h(y))|h'(y)|$，$x=h(y)$ 为反函数 & $g'>0$ 或 $g'<0$\\
+$Y=X^2$ & $f_Y(y)=\dfrac{f_X(\sqrt y)+f_X(-\sqrt y)}{2\sqrt y}$，$y>0$ & ---\\
+$Y=e^X$ & $f_Y(y)=\dfrac{f_X(\ln y)}{y}$，$y>0$ & ---\\
+$Z=X+Y$ 独立 & $f_Z(z)=\int f_X(x)f_Y(z-x)\dd x$（卷积） & 独立\\
+$Z=\max(X,Y)$ 独立 & $F_Z(z)=F_X(z)F_Y(z)$ & 独立\\
+$Z=\min(X,Y)$ 独立 & $F_Z(z)=1-[1-F_X(z)][1-F_Y(z)]$ & 独立\\\hline
+\end{tabular}\end{center}
+
+\Sub{0.10 期望与方差进阶公式}
+\Def{方差公式} $D(X)=E X^2-[EX]^2$；$D(aX+b)=a^2D(X)$；$D(X+Y)=D(X)+D(Y)+2\Cov(X,Y)$；独立时 $D(X+Y)=D(X)+D(Y)$。
+\Def{期望存在性判据} $\E X$ 存在 $\iff$ $\E X^+,\ \E X^-$ 中至少一个有限（柯西分布的 $E$ 不存在）。
+\Hi{雅各--戴维逊公式} $D(X)=\min_c\;\E[(X-c)^2]$（$c=EX$ 时取最小）。
+\Hi{矩母函数} $M_X(s)=E[e^{sX}]$，$E(X^k)=M_X^{(k)}(0)$；$M_{X+Y}(s)=M_X(s)M_Y(s)$（独立）。
+
+\Sub{0.11 条件期望的重点性质}
+① 全期望公式 $E(Y)=E[E(Y\mid X)]$，全方差公式 $D(Y)=E[D(Y\mid X)]+D[E(Y\mid X)]$；
+② $E[g(X)h(X)]=E[g(X)E(h(X)\mid X)]$；
+③ $E(Y\mid X)$ 与 $\sigma(X)=\sigma(X)$（由 $X$ 生成的可测函数）可交换；
+④ 回归：$E(Y\mid X=x)=\mu(x)$ 是 $x$ 的函数（回归曲线）；$E(Y\mid X)=\mu(X)$ 是随机变量；
+⑤ 条件方差 $D(X\mid Y=y)=\E\{[X-E(X\mid Y=y)]^2\mid Y=y\}$。
+
+\Sub{0.12 抽样与模拟}
+逆变换采样：$X\sim U(0,1)$，$Z=F^{-1}(X)$；离散分布用广义逆 $F^{-1}(u)=\inf\{x:F(x)\ge u\}$。
+接受-拒绝法、分层抽样、正态 Box--Muller：$Z=\sqrt{-2\ln U_1}\cos(2\pi U_2)$，$U_1,U_2\sim U(0,1)$ i.i.d.。
+
+\Sub{0.13 常用数学事实备查}
+$\sum_{k=0}^{n}1=\sum_{k=1}^n k$，等比级数 $\sum_{k=1}^{\infty}r^{k-1}=\frac1{1-r}$（$|r|<1$）；
+$\sum_{k=1}^{\infty}k r^{k-1}=\frac1{(1-r)^2}$；$\sum k^2r^{k-1}=\frac{1+r}{(1-r)^3}$；
+$\Gamma(n)=(n-1)!$，$\Gamma(n,\lambda)=\int_\lambda^\infty \frac{t^{n-1}e^{-t}}{\Gamma(n)}\dd t$（上不完全 Gamma）；
+$\int_{-\infty}^{\infty}e^{-x^2}\dd x=\sqrt\pi$；$(2n-1)!!=\frac{(2n)!}{2^n n!}$。
+
+
+\Sub{0.14 二维正态与独立性的深入}
+二维正态 $(X,Y)\sim N(\mu_1,\sigma_1^2;\mu_2,\sigma_2^2;\rho)$ 的边缘与条件：
+$F_{Y|X}(y|x)=\Phi\!\Big(\dfrac{y-\mu_2-\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1)}{\sigma_2\sqrt{1-\rho^2}}\Big)$；
+$\rho=0\iff X,Y$ 独立（此时密度分离为两个边缘密度的乘积）；
+$\rho=\pm1$ 退化为直线 $Y=\mu_2\pm\frac{\sigma_2}{\sigma_1}(X-\mu_1)$。
+\Hi{正态的可加性} $X,Y$ 独立 $\sim N(\mu_1,\sigma_1^2),N(\mu_2,\sigma_2^2)$ $\Rightarrow$ $X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$，$aX+bY\sim N(a\mu_1+b\mu_2,a^2\sigma_1^2+b^2\sigma_2^2)$（$b\ne0$ 时 $b^2\sigma^2$）。
+
+\Sub{0.15 特征函数的性质全表}
+\begin{center}\footnotesize
+\begin{tabular}{p{1.93cm}p{4.23cm}p{2.48cm}}\hline
+性质 & 内容 & 说明\\\hline
+有界性 & $|\varphi_X(t)|\le\varphi_X(0)=1$ & ---\\
+连续性 & $\varphi_X$ 连续、绝对可积（若矩存在） & $\varphi_X^{(k)}(0)$ 给出矩\\
+对称性 & $\varphi_{-X}(t)=\overline{\varphi_X(t)}$ & 实值时为偶函数\\
+线性 & $\varphi_{aX+b}(t)=e^{jbt}\varphi_X(at)$ & $a\in\mathbb R$\\
+乘积 & $\varphi_{X+Y}(t)=\varphi_X(t)\varphi_Y(t)$ & $X,Y$ 独立\\\hline
+\end{tabular}\end{center}
+\Hi{唯一性定理} $F_1\equiv F_2\iff\varphi_1\equiv\varphi_2$（连续性定理）。
+\Hi{反演公式} $f(x)=\frac1{2\pi}\int_{-\infty}^{\infty}e^{-jtx}\varphi(t)\dd t$；离散 $p_k=\frac1{2\pi}\int e^{-jkt}\varphi(t)\dd t$。
+\Hi{卷积定理} $f_Z=f_X*f_Y\iff\varphi_Z=\varphi_X\varphi_Y$。
+
+\Sub{0.16 概率空间的进一步性质}
+可测空间 $(\Omega,\mathcal F)$：$\mathcal F$ 是 $\Omega$ 的集族，满足 $\Omega\in\mathcal F$、$A\in\mathcal F\Rightarrow A^c\in\mathcal F$、$A_i\in\mathcal F\Rightarrow\bigcup A_i\in\mathcal F$。
+由此推出：$\varnothing\in\mathcal F$、可列交封闭、有限并/交封闭、差运算封闭。
+测度空间 $(\Omega,\mathcal F,\mu)$：非负性、$\mu(\varnothing)=0$、可数可加性；$\mu(\Omega)=1$ 时为概率测度。
+条件概率：$P(B\mid A)=P(AB)/P(A)$（$P(A)>0$）；全概率公式 $P(B)=\sum_iP(B\mid A_i)P(A_i)$（$A_i$ 完备事件组）；
+贝叶斯公式 $P(A_j\mid B)=\dfrac{P(A_j)P(B\mid A_j)}{\sum_iP(A_i)P(B\mid A_i)}$。
+独立事件：$P(AB)=P(A)P(B)$；相互独立：任意有限子族 $P(\bigcap A_i)=\prod P(A_i)$。
+
+\Sub{0.17 随机变量与随机过程的联系}
+随机变量是 $T=\{1\}$ 的随机过程；随机过程 $\{X_t\}$ 在固定 $t$ 处是随机变量，在固定 $\omega$ 处是普通函数（样本函数）。
+数字特征体系：随机变量用 $\E X,D(X)$；随机过程用 $m(t),D(t),R(s,t),C(s,t)$——后者是前者的"过程化推广"。
+
+\Sub{0.18 抽样与常用不等式（补充）}
+\Hi{逆变换采样} 若 $F$ 连续严格单调，则 $Y=F(X)\sim U(0,1)$，$Z=F^{-1}(Y)\sim F$。
+\Hi{常用分布生成} 泊松：$N=\sum_{i=1}^n1_{\{U_i\le\lambda t\}}$；指数：$T=-\frac1\lambda\ln(1-U)$；$\Gamma(n,\lambda)=-\frac1\lambda\sum_{i=1}^n\ln(1-U_i)$；正态（Box--Muller）：$Z=\sqrt{-2\ln U_1}\cos 2\pi U_2$。
+\Hi{矩的存在性} $E X^2<\infty\Rightarrow$ 方差存在且 $D(X)\le E X^2$；一阶矩存在 $\iff E|X|<\infty$。
+\Hi{常用不等式} Markov $P\{X\ge a\}\le EX/a$；Chebyshev $P\{|X-\E X|\ge\varepsilon\}\le D(X)/\varepsilon^2$；Cauchy--Schwarz $E|XY|\le\sqrt{EX^2\,EY^2}$。
+\Hi{期望与积分换序} Tonelli（非负）、Fubini（绝对可积）：$\E\int X(t)\dd t=\int \E X(t)\dd t$；塔性质 $\E[\E(X\mid Y)]=\E X$。
+
+\end{multicols}
+\end{document}
