@@ -1,5 +1,5 @@
 \documentclass[UTF8,a4paper]{ctexart}
-\usepackage[a4paper,top=5mm,bottom=5mm,left=6mm,right=6mm]{geometry}
+\usepackage[a4paper,top=4mm,bottom=4mm,left=5mm,right=5mm]{geometry}
 \usepackage{amsmath,amssymb,bm}
 \usepackage{xcolor}
 \usepackage{multicol}
@@ -7,196 +7,147 @@
 \usepackage{enumitem}
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.6pt plus 0.2pt minus 0.1pt}
-\setlength{\columnsep}{3.4mm}
-\setlength{\multicolsep}{2pt}
-\setlength{\fboxsep}{1.4pt}
-\setlength{\tabcolsep}{1.6pt}
-\setlist[itemize]{leftmargin=1.1em,itemsep=0pt,topsep=0.6pt,parsep=0pt}
-\setlist[enumerate]{leftmargin=1.3em,itemsep=0pt,topsep=0.6pt,parsep=0pt}
+\setlength{\parskip}{0.4pt plus 0.15pt minus 0.1pt}
+\setlength{\columnsep}{3.0mm}
+\setlength{\multicolsep}{1.5pt}
+\setlength{\fboxsep}{1.2pt}
+\setlist[itemize]{leftmargin=1.1em,itemsep=0pt,topsep=0.5pt,parsep=0pt}
 \sloppy
-\newcommand{\Sec}[1]{\par\vspace{1.6pt}{\bfseries\color{blue!65!black}\small #1}\par\vspace{0.6pt}}
+\newcommand{\Sec}[1]{\par\vspace{1.4pt}{\bfseries\color{blue!65!black}\small #1}\par\vspace{0.4pt}}
 \newcommand{\T}[1]{{\bfseries #1}\ }
 \newcommand{\B}[1]{\textbf{#1}}
 \newcommand{\Hi}[1]{\textcolor{red!70!black}{#1}}
-\newcommand{\BX}{\ensuremath{\square}}
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\P}{\mathbb{P}}
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}}
-\newcommand{\D}[1]{\mathrm{D}(#1)}
 \newcommand{\ind}{\perp\!\!\!\perp}
 \newcommand{\lima}{\mathop{\mathrm{l.i.m.}}}
 \newcommand{\ddt}{\mathrm{d}t}
-\newcommand{\half}{\tfrac12}
 \newcommand{\sm}{\ensuremath{\square}}
 \begin{document}
-\fontsize{9.1}{10.3}\selectfont
-\setlength{\abovedisplayskip}{2pt plus 1pt minus 1pt}
-\setlength{\belowdisplayskip}{2pt plus 1pt minus 1pt}
+\fontsize{8.7}{9.8}\selectfont
+\setlength{\abovedisplayskip}{1.5pt plus 0.8pt minus 0.8pt}
+\setlength{\belowdisplayskip}{1.5pt plus 0.8pt minus 0.8pt}
 \setlength{\abovedisplayshortskip}{1pt plus 0.5pt minus 0.5pt}
-\setlength{\belowdisplayshortskip}{2pt plus 1pt minus 1pt}
-\setlength{\jot}{1pt}
-\setlength{\parskip}{0.6pt plus 0.2pt minus 0.1pt}
+\setlength{\belowdisplayshortskip}{1.5pt plus 0.8pt minus 0.8pt}
+\setlength{\jot}{0.5pt}
 \raggedcolumns
 \begin{multicols}{3}
 
 \Sec{第0章 预备知识}
 
-\T{0.1 概率空间} 三元组 $(\Omega,\mathcal F,P)$：样本空间、$\sigma$-代数、概率测度。柯氏公理：非负性 $P(A)\ge0$、$P(\Omega)=1$、可列可加性 $P(\bigcup_iA_i)=\sum_iP(A_i)$（$A_i$ 两两不交）。$\mathcal F$：含 $\varnothing,\Omega$，对补、可列并封闭 $\Rightarrow$ 对交、差封闭；由 $A$ 生成 $\{\varnothing,A,A^c,\Omega\}$。
+\T{0.1 概率空间} $(\Omega,\mathcal F,P)$：样本空间、$\sigma$-代数、概率测度。柯氏公理：非负性、可列可加（$A_i$ 两两不交）、$P(\Omega)=1$。$\mathcal F$ 含 $\varnothing,\Omega$，对补与可列并封闭 $\Rightarrow$ 对交、差封闭。
 
-\T{0.2 随机变量与分布} $X$ 可测 $\iff\{X\le x\}\in\mathcal F,\forall x$。分布函数 $F(x)=P\{X\le x\}$：单调不减、右连续、$0\le F\le1$、$F(-\infty)=0,F(+\infty)=1$；$P\{a<X\le b\}=F(b)-F(a)$。条件分布 $F_{Y|X}(y|x)=\lim_{\Delta x\to0}\frac{P\{Y\le y,\,x-\Delta x<X\le x+\Delta x\}}{P\{x-\Delta x<X\le x+\Delta x\}}$；$f(x,y)=f_X(x)f_{Y|X}(y|x)$。独立 $\iff F(x,y)=F_X(x)F_Y(y)$。
+\T{0.2 随机变量} $X$ 可测 $\iff\{X\le x\}\in\mathcal F$。分布函数 $F(x)=P\{X\le x\}$：单调不减、右连续、$0\le F\le1$、$F(-\infty)=0,F(+\infty)=1$；$P\{a<X\le b\}=F(b)-F(a)$；条件分布 $F_{Y|X}(y|x)$；$f(x,y)=f_X(x)f_{Y|X}(y|x)$；独立 $\iff F(x,y)=F_X(x)F_Y(y)$。
 
-\T{0.3 R-S 积分} 剖分 $a=x_0<\cdots<x_n=b$，取 $x_k^*\in[x_k,x_{k+1}]$：
-$$\int_a^b f\,\dd g=\lim_{\lambda\to0}\sum_{k=0}^{n-1}f(x_k^*)[g(x_{k+1})-g(x_k)]$$
-$$\lambda=\max_k(x_{k+1}-x_k).$$
-性质：线性、$\int_a^b=\int_a^c+\int_c^b$、$\int\alpha f\,\dd[\beta g]=\alpha\beta\int f\,\dd g$、\Hi{分部积分 $\int_a^b f\,\dd g=[fg]_a^b-\int_a^b g\,\dd f$}。若 $g'$ 存在且可积：$\int f\,\dd g=\int fg'\dd x$；若 $g$ 在 $(C_k,C_{k+1}]$ 取常值：$\int f\,\dd g=\sum_k f(C_k)[g(C_k+0)-g(C_k-0)]$；离散型 $\int x\,\dd F=\sum_kx_kp_k$。
+\T{0.3 R-S 积分} 剖分 $a=x_0<\cdots<x_n=b$，$x_k^*\in[x_k,x_{k+1}]$：
+$$\int_a^bf\,\dd g=\lim_{\lambda\to0}\sum_{k=0}^{n-1}f(x_k^*)[g(x_{k+1})-g(x_k)]$$$$\lambda=\max_k(x_{k+1}-x_k).$$
+线性、$\int_a^b=\int_a^c+\int_c^b$、$\int\alpha f\,\dd[\beta g]=\alpha\beta\int f\,\dd g$；\Hi{分部积分 $\int_a^bf\,\dd g=[fg]_a^b-\int_a^bg\,\dd f$}。若 $g'$ 可积：$\int f\,\dd g=\int fg'\dd x$；离散型 $\int x\,\dd F=\sum_kx_kp_k$。
 
-\T{0.4 数字特征}
-$$\E X=\int x\dd F(x)=\begin{cases}\int xf\dd x&\text{连续}\\ \sum_kx_kp_k&\text{离散}\end{cases}$$
-$$\E[g(X)]=\int g\dd F,\quad D(X)=\E X^2-(\E X)^2$$
-$$\sigma_X=\sqrt{D(X)}$$
-\Cauchy--Schwarz：$(\E XY)^2\le\E X^2\E Y^2$，等号 $\iff P\{Y=aX+b\}=1$。\Hi{雅各--戴维逊} $D(X)=\min_c\E[(X-c)^2]$。方差 $D(aX+b)=a^2D(X)$，$D(X+Y)=D(X)+D(Y)+2\Cov(X,Y)$。\E X 存在 $\iff \E X^+,\E X^-$ 至少一个有限。
+\T{0.4 数字特征} $\E X=\int x\dd F(x)=\E[g(X)]$，$D(X)=\E X^2-(\E X)^2$，$\sigma_X=\sqrt{D(X)}$。\Hi{雅各--戴维逊 $D(X)=\min_c\E[(X-c)^2]$}。$D(aX+b)=a^2D(X)$，$D(X+Y)=D(X)+D(Y)+2\Cov(X,Y)$。Cauchy--Schwarz $(\E XY)^2\le\E X^2\E Y^2$，等号 $\iff P\{Y=aX+b\}=1$。
 
-\T{0.5 特征函数} $\varphi_X(u)=\E[e^{juX}]=\int e{jux}\dd F$（$j^2=-1$）。性质：$|\varphi_X|\le1$、$\varphi_X(0)=1$、连续；$\varphi_{aX+b}(u)=e{jub}\varphi_X(au)$；\Hi{$E(X^k)=\varphi_X^{(k)}(0)/j^k$}；独立 $\iff\varphi_{X+Y}=\varphi_X\varphi_Y$。反演：$F(x_2)-F(x_1)=\lim_{T\to\infty}\frac1{2\pi}\int_{-T}^T\frac{e^{-jtx_2}-e^{-jtx_1}}{-jt}\varphi(t)\dd t$；若 $\varphi$ 绝对可积则 $f(x)=\frac1{2\pi}\int e^{-jtx}\varphi(t)\dd t$。\Hi{波赫纳--辛钦}：$\varphi$ 是特征函数 $\iff$ 一致连续、非负定、$\varphi(0)=1$。
+\T{0.5 特征函数} $\varphi_X(u)=\E e^{juX}$；$E(X^k)=\varphi^{(k)}(0)/j^k$；\Hi{反演 $f(x)=\frac1{2\pi}\int e^{-jtx}\varphi(t)\dd t$}；唯一性 $\varphi_X=\varphi_Y\iff F_X=F_Y$。
 
-\T{0.6 条件期望/方差} $\E(Y|X=x)=\int y\dd F_{Y|X}(y|x)$；$\E(Y|X)=\mu(X)$ 是随机变量。\Hi{全期望} $\E Y=\E[\E(Y|X)]$；\Hi{全方差} $D(Y)=\E[D(Y|X)]+D[\E(Y|X)]$；$\E[g(X)h(X)]=\E[g(X)\E(h(X)|X)]$。二维正态 $Y|X=x\sim N(\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1),\sigma_2^2(1-\rho^2))$；独立 $\iff\rho=0$。
+\T{0.6 条件期望/方差} $\E(Y|X)=\mu(X)$；\Hi{全期望 $\E Y=\E[\E(Y|X)]$}；\Hi{全方差 $D(Y)=\E[D(Y|X)]+D[\E(Y|X)]$}。二维正态 $Y|X=x\sim N(\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x-\mu_1),\sigma_2^2(1-\rho^2))$，独立 $\iff\rho=0$。
 
-\T{0.7 函数分布与卷积} $Y=g(X)$ 单调可导，$x=h(y)$：$f_Y(y)=f_X(h(y))|h'(y)|$；$Y=X^2$：$f_Y(y)=\frac{f_X(\sqrt y)+f_X(-\sqrt y)}{2\sqrt y}$；$Y=e^X$：$f_Y(y)=f_X(\ln y)/y$。独立时 $Z=X+Y$：$f_Z(z)=\int f_X(x)f_Y(z-x)\dd x$；$Z=\max$：$F_Z=F_XF_Y$；$Z=\min$：$F_Z=1-(1-F_X)(1-F_Y)$。\Hi{正态可加性} $X,Y$ 独立 $\Rightarrow X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$，$aX+bY\sim N(a\mu_1+b\mu_2,a^2\sigma_1^2+b^2\sigma_2^2)$。
-
-\T{0.8 常用分布速查} 二项 $B(n,p)$：$E=np,D=np(1-p),\varphi=(q+pe^{jt})^n$；泊松 $P(\lambda)$：$E=D=\lambda,\varphi=e^{\lambda(e^{jt}-1)}$；指数 $Exp(\lambda)$：$E=1/\lambda,D=1/\lambda^2,\varphi=\lambda/(\lambda-jt)$；均匀 $U[a,b]$：$E=\frac{a+b}2,D=\frac{(b-a)^2}{12}$；正态 $N(\mu,\sigma^2)$：$\varphi=e^{j\mu t-\sigma^2t^2/2}$；几何：$E=1/p$。
-
-\T{0.9 常用不等式与采样} Markov $P\{X\ge a\}\le EX/a$；Chebyshev $P\{|X-\E X|\ge\varepsilon\}\le D(X)/\varepsilon^2$；Cauchy--Schwarz $E|XY|\le\sqrt{\EX^2\EY^2}$。逆变换：$F$ 连续严格单调 $\Rightarrow F(X)\sim U(0,1)$，$Z=F^{-1}(U)\sim F$；Box--Muller $Z=\sqrt{-2\ln U_1}\cos 2\pi U_2$。塔性质 $\E[\E(X|Y)]=\E X$。
+\T{0.7 常用分布} 二项 $B(n,p)$：$E=np$，$D=np(1-p)$，$P(X=k)=\binom nkp^k(1-p)^{n-k}$；泊松 $P(\lambda)$：$E=D=\lambda$，$P(X=k)=\frac{\lambda^k}{k!}e^{-\lambda}$；指数 $Exp(\lambda)$：$E=1/\lambda$，$D=1/\lambda^2$；均匀 $U(a,b)$：$E=\frac{a+b}2$，$D=\frac{(b-a)^2}{12}$；正态 $N(\mu,\sigma^2)$：$\varphi=e^{j\mu u-\sigma^2u^2/2}$。
 
 \Sec{第1章 随机过程基本概念}
 
-\T{1.1 定义与有限维分布} $\{X_t(\omega),t\in T\}$ 为 $T\times\Omega$ 上的二元函数；状态空间 $E$；$T$ 可列 $\Rightarrow$ 时间序列。$F_t(x)=P\{X_t\le x\}$，$F_{t_1\cdots t_n}(x_1,\dots,x_n)=P\{X_{t_1}\le x_1,\dots,X_{t_n}\le x_n\}$。
+\T{1.1 定义与性质} $\{X(t),t\in T\}$ 为 $T\times\Omega$ 上的二元函数；状态空间 $E$；$F_i(t)=P\{X(t)\le x_i\}$；\Hi{有限维分布两性质} (1) 对称性 (2) 纵向相容性 $F_{i_1\cdots i_n;\ldots}(t)=\int F_{i_1\cdots i_n;\ldots}(t_1,\ldots,t_{n-1};t_n)\dd F_{i_n}(t_n)$。\Hi{Kolmogorov 存在定理}：存在相容的有限维分布族 $\Rightarrow$ 存在随机过程。
 
-\Hi{有限维分布两性质} (1) 对称性；(2) 纵向相容性 $F_{t_1\cdots t_m,\cdot,t_n}=\lim_{x_n\to+\infty}F_{t_1\cdots t_n}$。\B{Kolmogorov 存在定理}：存在随机过程的充要条件是满足对称性与纵向相容性。
+\T{1.2 数字特征} $m(t)=E[X_t]$，$D(t)=DX_t$，$R(s,t)=E[X_sX_t]$，$C(s,t)=R-m(s)m(t)$，$\rho(s,t)=\frac{C(s,t)}{\sqrt{D(s)D(t)}}$。宽平稳：$m$ 常数、$C=C(t-s)$；严平稳：联合分布平移不变；\Hi{严 $\Rightarrow$ 宽}，宽 $\nRightarrow$ 严；对正态过程二者等价。
 
-\T{1.2 数字特征}
-$$m(t)=E[X_t],\quad D(t)=D(X_t)$$
-$$D(t)=E[X_t^2]-m^2(t)$$
+\T{1.3 增量与性质1.3.1} 独立增量：$X(t)-X(s)$ 只依赖 $t-s$ 且相互独立。\Hi{性质1.3.1} 平稳独立增量且 $X(0)=0$：$m(t)=mt$，$D(t)=\sigma^2t$，$C(s,t)=\sigma^2\min(s,t)$。\Hi{性质1.3.2} 独立增量过程的有限维分布由一维分布与增量分布唯一确定。
 
-$$R(s,t)=E[X_sX_t],\quad C(s,t)=\Cov(X_s,X_t)$$
-$$C(s,t)=R(s,t)-m(s)m(t),\quad D(t)=C(t,t)$$
-$$\rho(s,t)=\frac{C(s,t)}{\sqrt{D(s)D(t)}}$$
-复过程 $Z_t=X_t+jY_t$：$m_Z=m_X+jm_Y$，$D_Z=D_X+D_Y$。
+\T{1.4 相关与平稳} $m_X(t)=0$ 时 $R=C$；非负定性 $\sum_{k,j}R(t_k-t_j)\alpha_k\alpha_j^*\ge0$；宽平稳 $\iff$ $R(t_1,t_2)=R(t_1-t_2)$。增量过程 $X(t+a)-X(t)$ 平稳；\Hi{性质1.3.1 重点：$X(0)=0$}。
 
-\T{1.3 分类} 二阶矩过程：$\forall t,\ E|X_t|<\infty$。\B{宽平稳}：$m(t)=m$，$C(s,t)=C(s-t)=C(\tau)$（实平稳 $R(s,t)=R(\tau)$，$D=C(0)$ 常数）。\B{严平稳}：$F_{t_1\cdots t_n}(x)=F_{t_1+\tau,\dots,t_n+\tau}(x)$。\Hi{定理4.1.2} 高斯过程：宽平稳 $\iff$ 严平稳。宽 $\nRightarrow$ 严（i.i.d.\ 序列严平稳但宽平稳不成立）；严 $\nRightarrow$ 宽。
+\T{1.5 均方过程} 均方 $X_t\xrightarrow{m.s.}X$：$E|X_t-X|^2\to0$；独立增量 $X_t-X_{t-1}\ind$；不相关 $X(t_1)\perp X(t_2)$。
 
-\T{1.4 相关函数性质} 若 $m\equiv0$：(1) 非负定性 $\sum_{k,j}R(t_k,t_j)\alpha_k\alpha_j^*=E|\sum_k\alpha_kX_{t_k}|^2\ge0$；(2) 埃密特性 $R(t,s)=R(s,t)$（实值），故宽平稳 $R(\tau)=R(-\tau)$ 偶函数。
-
-\T{1.5 增量过程} \B{平稳增量} $X_{t+h}-X_{s+h}\overset d=X_t-X_s$（时齐）；\B{独立增量}：相邻区间增量互相独立；\B{不相关/正交增量}。
-
-\Hi{性质1.3.1（重点）} 平稳独立增量且 $X(0)=0$ $\Rightarrow$
-$$m(t)=mt\ (m=m(1)),\quad D(t)=\sigma^2t$$
-$$\sigma^2=D(1)$$
-$$C(s,t)=\sigma^2\min(s,t)$$
-\Hi{性质1.3.2} 独立增量过程的有限维分布由一维分布与增量分布唯一确定。
-
-\T{1.6 典型信号判平稳} $X_t=a\cos\omega t+\Theta,\ \Theta\sim U(0,2\pi)$：$m=0$，$R=\frac{a^2}2\cos\omega\tau$，严+宽平稳；$X_t=A\cos\omega t+\varphi$：均值非常数 $\Rightarrow$ 不平稳；$X_t=a\cos\Omega t+\varphi$（$\Omega$ 随机）：$R$ 含绝对时间 $\Rightarrow$ 不平稳；$X_t=A\cos at+B\sin at$，$A,B\overset{ind}{\sim}N(0,\sigma^2)$：$m=0$，$R(s,t)=\sigma^2\cos a(t-s)$；$X_t=At+B$：$m=At+B$；$X_t=U+Vt$，$U,V\overset{ind}{\sim}N(0,1)$：$m=0$，$D=1+t^2$，$R=1+st$（非平稳正态）。
+\T{1.6 判平稳实例} $X_t=a\cos\omega t+\Theta,\Theta\sim U(0,2\pi)$：$m=0$，$R=\frac{a^2}2\cos\omega\tau$，严+宽平稳；$A\cos\omega t+\varphi$（$\varphi$ 定值）：均值非常数 $\Rightarrow$ 不平稳；$a\cos\Omega t+\varphi$（$\Omega$ 随机）：$R$ 含绝对时间 $\Rightarrow$ 不平稳；$A\cos at+B\sin at$，$A,B\overset{\ind}{\sim}N(0,\sigma^2)$：$m=0$，$R(s,t)=\sigma^2\cos a(t-s)$；$X_t=At+B$；$X_t=U+Vt$，$U,V\overset{\ind}{\sim}N(0,1)$：$m=0$，$D=1+t^2$，$R=1+st$（非平稳正态）。
 
 \T{1.7 白噪声与 AR} 离散白噪声：$E=0$，$D=\sigma^2$，$R(m,n)=\sigma^2\delta_{mn}$；连续白噪声 $R(s,t)=\sigma^2\delta(s-t)$，$R(0)=\infty$，只能作广义过程。\Hi{AR(p)} $X_t=\varphi_1X_{t-1}+\cdots+\varphi_pX_{t-p}+\varepsilon_t$：平稳解 $\iff$ $\lambda^p-\varphi_1\lambda^{p-1}-\cdots-\varphi_p=0$ 的根全在单位圆内。
 
 \Sec{第2章 几种重要随机过程}
 
-\T{2.1 正态过程} $X\sim N(\mu,B)$：$\varphi_X(t)=\exp\{j\mu^{\mathsf T}t-\tfrac12t^{\mathsf T}Bt\}$；边缘仍正态；\Hi{独立 $\iff\rho_{ij}=0\iff B$ 对角}；\Hi{线性变换} $Y=CX\sim N(C\mu,CBC^{\mathsf T})$，$m>n$ 时退化。正态过程定义：有限维分布族皆正态；\Hi{高斯过程由均值与协方差完全决定}；$Z=\alpha X+\beta Y$：$\mu_Z=\alpha\mu_X+\beta\mu_Y$，$B_Z=\alpha^2B_X+\beta^2B_Y$（不独立时加 $\alpha\beta(B_{XY}+B_{YX})$）。
+\T{2.1 正态过程} $X\sim N(\mu,B)$：$\varphi_X(t)=\exp\{j\mu^{\mathsf T}t-\tfrac12t^{\mathsf T}Bt\}$；\Hi{独立 $\iff\rho_{ij}=0\iff B$ 对角}；\Hi{线性变换 $Y=CX\sim N(C\mu,CBC^{\mathsf T})$}（$m>n$ 退化）；\Hi{高斯过程由均值与协方差完全决定}；$Z=\alpha X+\beta Y$：$\mu_Z=\alpha\mu_X+\beta\mu_Y$，$B_Z=\alpha^2B_X+\beta^2B_Y+\alpha\beta(B_{XY}+B_{YX})$。
 
-\T{2.2 维纳过程} \B{定义}：$W_0=0$、独立增量、$W_t-W_s\sim N(0,\sigma^2(t-s))$、轨道连续。\Hi{定理2.2.1} 维纳过程是正态过程，$B_{ij}=\sigma^2\min(t_i,t_j)$。\Hi{定理2.2.2（充要）} 正态过程 + $W_0=0$ + $E(W_t)=0$ + $E(W_sW_t)=\sigma^2\min(s,t)$ + 轨道连续 $\Rightarrow$ 维纳过程。
+\T{2.2 维纳过程} \B{定义}：$W_0=0$、独立增量、$W_t-W_s\sim N(0,\sigma^2(t-s))$、轨道连续。\Hi{定理2.2.1} 维纳过程是正态过程，$B_{ij}=\sigma^2\min(t_i,t_j)$。\Hi{定理2.2.2（充要）} 正态+$W_0=0$+$E(W_t)=0$+$E(W_sW_t)=\sigma^2\min(s,t)$+轨道连续 $\Rightarrow$ 维纳。性质：$m=0$，$D=\sigma^2t$，$C=R=\sigma^2\min(s,t)$；马尔可夫 $E[W_{t_2}|W_{t_1}]=W_{t_1}$，$D(W_{t_2}|W_{t_1})=\sigma^2(t_2-t_1)$；均方连续但\Hi{均方不可微} $E|\Delta W/h|^2=\sigma^2/h\to\infty$；鞅：$W_t$ 与 $W_t^2-\sigma^2t$；$X(t)=W^2(t)$：$m=\sigma^2t$，$R_X(s,t)=\sigma^4[st+2\min^2(s,t)]$；仍是维纳：$W(t+a)-W(a)$、$cW(t^2)$、$-W(t)$、$tW(1/t)\overset d=W(t)$；$\E W_t^{2n}=\sigma^{2n}t^n(2n-1)!!$。
 
-性质：$m=0$，$D=\sigma^2t$，$C(s,t)=R(s,t)=\sigma^2\min(s,t)$；正态；马尔可夫 $E[W_{t_2}|W_{t_1}]=W_{t_1}$，$D(W_{t_2}|W_{t_1})=\sigma^2(t_2-t_1)$；均方连续但\Hi{均方不可微} $E|{\Delta W}/h|^2=\sigma^2/h\to\infty$；鞅：$W_t$ 与 $W_t^2-\sigma^2t$。派生：$X(t)=W^2(t)$：$m=\sigma^2t$，$R_X(s,t)=\sigma^4[st+2\min^2(s,t)]$；$tW(1/t)\overset d=W(t)$。仍是维纳：$W(t+a)-W(a)$、$cW(t^2)$、$-W(t)$、$tW(1/t)$。高斯矩 $\E W_t^{2n}=\sigma^{2n}t^n(2n-1)!!$。
-
-\T{2.3 泊松过程} \B{等价定义}：$N(0)=0$ 且 $\forall0\le s<t$，$N(t)-N(s)\sim P(\lambda(t-s))$：
-$$P\{N(t)-N(s)=k\}=\frac{[\lambda(t-s)]^k}{k!}e^{-\lambda(t-s)}.$$
-（\Hi{注意} $N(t)\sim P(\lambda t)$ 不能推出增量平稳。）数字特征：$m(t)=\lambda t$，$D(t)=\lambda t$，$C(s,t)=\lambda\min(s,t)$，$R(s,t)=\lambda\min(s,t)+\lambda^2st$；$\varphi_{t,u}=e^{\lambda t(e^{ju}-1)}$。
-
-\Hi{定理2.3.3} 到达间隔 $T_n$ i.i.d. $\sim Exp(\lambda)$，$E=1/\lambda$；\Hi{定理2.3.4} 等待时间 $W_n=\sum_{i=1}^nT_i\sim\Gamma(n,\lambda)$，$f_{W_n}(t)=\frac{\lambda^nt^{n-1}}{(n-1)!}e^{-\lambda t}$，$EW_n=\frac n\lambda$；$\{N(t)\ge n\}=\{W_n\le t\}$。\Hi{定理2.3.5} 已知 $N(t)=n$，到达时刻为 $n$ 个独立 $U(0,t)$ 的顺序统计量：$f(t_1,\dots,t_n|N(t)=n)=\frac{n!}{t^n}$。\Hi{鞅} $N(t)-\lambda t$ 是鞅。
+\T{2.3 泊松过程} \B{等价定义}：$N(0)=0$ 且 $\forall0\le s<t$，$N(t)-N(s)\sim P(\lambda(t-s))$，$P\{N(t)-N(s)=k\}=\frac{[\lambda(t-s)]^k}{k!}e^{-\lambda(t-s)}$。（\Hi{注意} $N(t)\sim P(\lambda t)$ 不能推出增量平稳。）数字特征：$m(t)=\lambda t$，$D(t)=\lambda t$，$C(s,t)=\lambda\min(s,t)$，$R(s,t)=\lambda\min(s,t)+\lambda^2st$。\Hi{定理2.3.3} 到达间隔 $T_n$ i.i.d. $\sim Exp(\lambda)$，$E=1/\lambda$；\Hi{定理2.3.4} $W_n=\sum_{i=1}^nT_i\sim\Gamma(n,\lambda)$，$f_{W_n}(t)=\frac{\lambda^nt^{n-1}}{(n-1)!}e^{-\lambda t}$，$EW_n=\frac n\lambda$；$\{N(t)\ge n\}=\{W_n\le t\}$。\Hi{定理2.3.5} 已知 $N(t)=n$，到达时刻为 $n$ 个独立 $U(0,t)$ 的顺序统计量，$f(t_1,\dots,t_n|N(t)=n)=\frac{n!}{t^n}$。\Hi{鞅} $N(t)-\lambda t$。
 
 \T{2.4 泊松过程推广} 稀释 $M(t)=\sum Y_n\sim P(\lambda pt)$；叠加 $N_1+N_2\sim P(\lambda_1+\lambda_2)$（$N_1-N_2$ 不是泊松过程）；\B{更新过程} $W_n=\sum T_i$，$N(t)=\sup\{n:W_n\le t\}$，$\varphi_W=[\varphi_T]^n$；更新过程是泊松 $\iff$ 间距指数；\B{复合泊松} $X(t)=\sum_nY_n$：$\varphi_X(t,u)=\exp\{\lambda t[\varphi_{Y_1}(u)-1]\}$，$m=\lambda tE(Y_1)$，$D=\lambda tE(Y_1^2)$。
 
-\T{2.5 应用} 排队系统；影院问题 $\E[\sum_{k=1}^{N(t)}(t-W_k)]=\frac12\E N(t)=\frac{\lambda t^2}2$；保险赔款（复合泊松）；股票价格变化 $X(t)=\sum\delta_n$。
+\T{2.5 应用} 排队系统；影院问题 $\E[\sum_{k=1}^{N(t)}(t-W_k)]=\frac12\E N(t)=\frac{\lambda t^2}2$；保险赔款（复合泊松）；股票价格变化。
 
 \T{2.6 误区} 泊松过程不是正态过程；泊松/维纳均方连续、可积但\Hi{不可微}；$N(t)$ 与 $W_n$ 不独立；连续白噪声非普通二阶矩过程。
 
 \Sec{第3章 均方分析}
 
-\T{3.1 收敛} 依分布 $F_n\Rightarrow F$；依概率 $\lim P\{|X_n-X|<\varepsilon\}=0$；a.s. $P\{\lim X_n=X\}=1$；\Hi{均方收敛} $\lim E|X_n-X|^2=0$。
-\Hi{收敛关系}：均方 $\Rightarrow$ 依概率 $\Rightarrow$ 依分布；a.s. $\Rightarrow$ 依概率；均方 $\nRightarrow$ a.s.（$X_n=1_{\{U<1/n\}}$，$U\sim U(0,1)$）；依分布 $\nRightarrow$ 依概率（$X_n=-X$，$X=\pm1$）。
-\Hi{定理3.1.1} $F_n\Rightarrow F\Rightarrow\varphi_n\to\varphi$；逆：$\varphi_n\to\varphi$ 且 $\varphi$ 在 $0$ 连续 $\Rightarrow F_n\Rightarrow F$。
+\T{3.1 收敛} 依分布 $F_n\Rightarrow F$；依概率 $\lim P\{|X_n-X|<\varepsilon\}=0$；a.s. $P\{\lim X_n=X\}=1$；\Hi{均方收敛 $\lim E|X_n-X|^2=0$}。\Hi{收敛关系}：均方 $\Rightarrow$ 依概率 $\Rightarrow$ 依分布；a.s. $\Rightarrow$ 依概率；均方 $\nRightarrow$ a.s.（$X_n=1_{\{U<1/n\}}$）；依分布 $\nRightarrow$ 依概率（$X_n=-X$，$X=\pm1$）。\Hi{定理3.1.1} $F_n\Rightarrow F\Rightarrow\varphi_n\to\varphi$；逆：$\varphi_n\to\varphi$ 且 $\varphi$ 在 $0$ 连续 $\Rightarrow F_n\Rightarrow F$。
 
-\T{3.2 大数定律与中心极限} 切比雪夫：独立、$D(X_k)<C$ $\Rightarrow$ 样本均值 $\to\mu$（a.s.）；辛钦：独立同分布、$E$ 存在 $\Rightarrow$ 同样结论；贝努里 $m/n\to p$；\Hi{中心极限} $ \frac{\sum(X_k-\mu)}{\sigma\sqrt n}\Rightarrow N(0,1)$；棣莫弗--拉普拉斯 $\frac{Y_n-np}{\sqrt{np(1-p)}}\Rightarrow N(0,1)$；泊松和 $Y_n=\sum_{k=1}^nX_k\sim P(n\lambda)$。
+\T{3.2 大数定律与中心极限} 切比雪夫（独立、$D<C$ $\Rightarrow$ 样本均值 $\to\mu$ a.s.）；辛钦（独立同分布、$E$ 存在）；贝努里 $m/n\to p$；\Hi{中心极限 $\frac{\sum(X_k-\mu)}{\sigma\sqrt n}\Rightarrow N(0,1)$}；棣莫弗--拉普拉斯 $\frac{Y_n-np}{\sqrt{np(1-p)}}\Rightarrow N(0,1)$；泊松和 $Y_n=\sum_{k=1}^nX_k\sim P(n\lambda)$。
 
-\T{3.3 二阶矩空间 $H$} $H=\{X:E|X|^2<\infty\}$，内积 $\langle X,Y\rangle=E[XY^*]$，范数 $\|X\|=\sqrt{E|X|^2}$；\Hi{$X=Y$ a.s. $\iff d(X,Y)=\sqrt{E|X-Y|^2}=0$}。Cauchy 准则：均方收敛 $\iff\lim_{m,n}E|X_m-X_n|=0$（$H$ 完备）。\Hi{洛易夫判别} $\{X_n\}\subset H$ 均方收敛 $\iff\lim_{m,n}E(X_mX_n)$ 存在。均方收敛对线性运算封闭，$E(X_n)\to E(X)$，$D(X_n)\to D(X)$。
+\T{3.3 二阶矩空间 $H$} $H=\{X:E|X|^2<\infty\}$，内积 $\langle X,Y\rangle=E[XY^*]$，范数 $\|X\|=\sqrt{E|X|^2}$；\Hi{$X=Y$ a.s. $\iff d(X,Y)=\sqrt{E|X-Y|^2}=0$}。Cauchy 准则：均方收敛 $\iff\lim_{m,n}E|X_m-X_n|=0$。\Hi{洛易夫判别} $\{X_n\}\subset H$ 均方收敛 $\iff\lim_{m,n}E(X_mX_n)$ 存在。均方收敛对线性运算封闭，$E(X_n)\to E(X)$，$D(X_n)\to D(X)$。
 
-\T{3.4 均方连续} 均方连续 $\iff\lim_{s\to t_0}E|X(s)-X(t_0)|^2=0$。\Hi{定理3.3.1（洛易夫准则）} 在 $t_0$ 处均方收敛 $\iff\lim_{s\to t_0}E[X(s)X(t)]$ 存在（$\forall t$）。\Hi{定理3.3.3} 均方连续 $\iff R(s,t)$ 在 $(t_0,t_0)$ 连续；全区间均方连续 $\iff R$ 在对角线连续 $\Rightarrow$ $R$ 在 $T\times T$ 连续 $\Rightarrow$ $m(t),D(t)$ 连续。
+\T{3.4 均方连续} 均方连续 $\iff\lim_{s\to t_0}E|X(s)-X(t_0)|^2=0$。\Hi{定理3.3.1（洛易夫准则）} 在 $t_0$ 处均方收敛 $\iff\lim_{s\to t_0}E[X(s)X(t)]$ 存在。\Hi{定理3.3.3} 均方连续 $\iff R(s,t)$ 在 $(t_0,t_0)$ 连续；全区间均方连续 $\iff$ $R$ 在对角线连续 $\Rightarrow$ $R$ 在 $T\times T$ 连续 $\Rightarrow$ $m(t),D(t)$ 连续。
 
-\T{3.5 均方导数} $X'(t)=\lima\frac{X(t+\Delta t)-X(t)}{\Delta t}$（$\Delta t\to0$）。\Hi{定理3.4.1（可微准则）} 均方可微 $\iff R(s,t)$ 在 $(t,t)$ 处\Hi{广义二阶可微}（二重极限存在）：
-$$\frac{\substack{R(t+\Delta s,t+\Delta t)-R(t+\Delta s,t)\\[-2pt]-R(t,t+\Delta t)+R(t,t)}}{\Delta s\,\Delta t}$$
-\Hi{定理3.4.2} $m_{X'}=m'_X$，$R_{X'}(s,t)=R''_{st}=R''_{ts}$，$R_{X'X}=R'_s$，$R_{XX'}=R'_t$。性质：均方可微 $\Rightarrow$ 均方连续；线性；乘积法则 $[fX]'=f'X+fX'$；$X'\equiv0\Rightarrow X$ 为常随机变量。
+\T{3.5 均方导数} $X'(t)=\lima\frac{X(t+\Delta t)-X(t)}{\Delta t}$。\Hi{定理3.4.1（可微准则）} 均方可微 $\iff R(s,t)$ 在 $(t,t)$ 处\Hi{广义二阶可微}（二重极限存在）：
+$$\frac{R(t+\Delta s,t+\Delta t)-R(t+\Delta s,t)}{\ \ -\ R(t,t+\Delta t)+R(t,t)}{\Delta s\,\Delta t}$$
+\Hi{定理3.4.2} $m_{X'}=m'_X$，$R_{X'}(s,t)=R''_{st}=R''_{ts}$，$R_{X'X}=R'_s$，$R_{XX'}=R'_t$。性质：均方可微 $\Rightarrow$ 均方连续；线性；$[fX]'=f'X+fX'$；$X'\equiv0\Rightarrow X$ 为常随机变量。
 
-\T{3.6 随机积分} R-均方积分 $\int_a^bf(t)X(t)\dd t=\lima\sum f(t_k^*)X(t_k^*)\Delta t_k$；R-S 积分 $\int_a^bf(t)\dd X(t)=\lima\sum f(t_k^*)[X(t_k)-X(t_{k-1})]$\Hi{定理3.5.1（可积准则）} $f(t)X(t)$ 均方可积 $\iff\int_a^b\!\int_a^b f(s)f(t)R(s,t)\dd s\dd t$ 存在。\Hi{重要公式}
-$$\E\Big[\Big(\int_a^bX(t)\dd t\Big)^2\Big]=\int_a^b\!\int_a^b R(s,t)\dd s\dd t.$$
-矩：$E[\int fX\dd t]=\int fm_X\dd t$；$E[\int fX\dd t\int fY\dd t]=\iint f(s)f(t)R(s,t)\dd s\dd t$。不定积分 $Y(t)=\int_a^tX(s)\dd s$：$Y'=X$，$m_Y=\int m_X$，$R_Y(s,t)=\int_a^s\!\int_a^tR(u,v)\dd u\dd v$。\Hi{牛顿--莱布尼兹} $\int_a^bX'(t)\dd t=X(b)-X(a)$。正态性保持（定理3.5.6--3.5.9）。
+\T{3.6 随机积分} R-均方积分 $\int_a^bf(t)X(t)\dd t=\lima\sum f(t_k^*)X(t_k^*)\Delta t_k$；R-S 积分 $\int_a^bf(t)\dd X(t)=\lima\sum f(t_k^*)[X(t_k)-X(t_{k-1})]$。\Hi{定理3.5.1（可积准则）} $f(t)X(t)$ 均方可积 $\iff\int_a^b\!\int_a^bf(s)f(t)R(s,t)\dd s\dd t$ 存在。\Hi{重要公式}
+$$E\Big[\Big(\int_a^bX(t)\dd t\Big)^2\Big]=\int_a^b\!\!\int_a^bR(s,t)\dd s\dd t$$
+矩：$E[\int fX\dd t]=\int fm_X\dd t$；\allowbreak $E[\int fX\dd t\int fY\dd t]=\iint f(s)f(t)R(s,t)\dd s\dd t$。不定积分 $Y(t)=\int_a^tX(s)\dd s$：$Y'=X$，$m_Y=\int m_X$，$R_Y(s,t)=\int_a^s\!\int_a^tR(u,v)\dd u\dd v$。\Hi{牛顿--莱布尼兹 $\int_a^bX'(t)\dd t=X(b)-X(a)$}。正态性保持。
 
 \T{3.7 反例表（务必掌握）} 维纳：连续$\checkmark$ 可积$\checkmark$ 不可微$\times$；泊松：$\checkmark$$\checkmark$$\times$（$R$ 对角折角）；OU $R=\sigma^2e^{-\alpha|\tau|}$：$\checkmark$$\checkmark$$\times$；光滑高斯 $R=\sigma^2e^{-\tau^2}$：$\checkmark$$\checkmark$$\checkmark$；白噪声：$\times$（$R(0)=\infty$）；两两独立 $N(0,1)$：$\times$（$E|X(t+h)-X(t)|^2=2$）但可积（积分$\equiv0$）；$X(t)=\xi+1_{\mathbb Q}(t)$：不可积。
 
 \Sec{第4章 平稳随机过程}
 
-\T{4.1 自相关性质（定理4.2.1）} 复平稳 $R_X(\tau)=E[X(t)X^*(t+\tau)]$：(1) $R_X(0)=E|X|^2\ge0$；(2) $|R_X(\tau)|\le R_X(0)$；(3) $R_X(-\tau)=R_X^*(\tau)$（实值时偶函数）；(4) 非负定性 $\sum_{k,j}R_X(t_k-t_j)\alpha_k\alpha_j^*\ge0$。\Hi{重要公式} 实平稳：
-$$\E\big[X(t)-X(t_0)\big]^2=2\big[R_X(0)-R_X(t-t_0)\big],$$
-$$\lim_{t\to t_0}\E[X(t)-X(t_0)]^2=0\iff\text{均方连续}.$$
-\Hi{定理4.2.4} 均方连续 $\iff R_X$ 在 $0$ 处连续（则处处连续）。\Hi{定理4.2.5} 均方可微 $\iff R_X$ 在 $0$ 处二次可微；此时 $m_{X'}=0$，$R_{X'}(\tau)=-R_X''(\tau)$，$R_{XX'}(\tau)=R_X'(\tau)$，$R_{X'X}=-R_X'$，$D[X']=-R_X''(0)\ge0$，$X$ 与 $X'$ 不相关（实正态时独立）。
-周期：周期为 $L$ $\Rightarrow R(\tau+L)=R(\tau)$；逆定理 $R_X(L)=R_X(0)\Rightarrow P\{X(t+L)=X(t)\}=1$。
-\Hi{定理4.2.6} $D\big[\int_a^bX\dd t\big]=2\int_a^b(b-\tau)R_X(\tau)\dd\tau$，$E[\int_a^bX\dd t]=m_X(b-a)$。
+\T{4.1 自相关性质（定理4.2.1）} 复平稳 $R_X(\tau)=E[X(t)X^*(t+\tau)]$：(1) $R_X(0)=E|X|^2\ge0$；(2) $|R_X(\tau)|\le R_X(0)$；(3) $R_X(-\tau)=R_X^*(\tau)$（实值时偶函数）；(4) 非负定性 $\sum_{k,j}R_X(t_k-t_j)\alpha_k\alpha_j^*\ge0$。\Hi{重要公式（实平稳）}
+$$E\big[X(t)-X(t_0)\big]^2=2\big[R_X(0)-R_X(t-t_0)\big]$$$$\lim_{t\to t_0}E[X(t)-X(t_0)]^2=0\iff\text{均方连续}.$$
+\Hi{定理4.2.4} 均方连续 $\iff R_X$ 在 $0$ 处连续（则处处连续）。\Hi{定理4.2.5} 均方可微 $\iff R_X$ 在 $0$ 处二次可微；此时 $m_{X'}=0$，$R_{X'}(\tau)=-R_X''(\tau)$，$R_{XX'}(\tau)=R_X'(\tau)$，$D[X']=-R_X''(0)\ge0$，$X$ 与 $X'$ 不相关（实正态时独立）。周期：周期为 $L$ $\Rightarrow R(\tau+L)=R(\tau)$；逆定理 $R_X(L)=R_X(0)\Rightarrow P\{X(t+L)=X(t)\}=1$。\Hi{定理4.2.6} $D\big[\int_a^bX\dd t\big]=2\int_a^b(b-\tau)R_X(\tau)\dd\tau$，$E[\int_a^bX\dd t]=m_X(b-a)$。
 
 \T{4.2 互相关} $X,Y$ 联合平稳 $\iff R_{XY}(\tau)=E\{X(t)Y(t+\tau)\}$ 只依赖 $\tau$；$R_{XY}(\tau)=R_{YX}(-\tau)$；$R_{\alpha X+\beta Y}(\tau)=\alpha R_X+\alpha\beta R_{XY}+\bar\alpha\bar\beta R_{YX}+\bar\beta R_Y$。
 
 \T{4.3 均方遍历性} 时间平均 $\lima\frac1{2T}\int_{-T}^TX(t)\dd t$；各态历经：时间平均 $\to m_X$（a.s.）且时间自相关 $\to R_X(\tau)$（a.s.）。\Hi{定理4.3.2（实平稳，均值各态历经的充要条件）}
 $$\lim_{T\to\infty}\frac1{2T}\int_{-T}^T\Big(1-\frac{|\tau|}{T}\Big)\big[C_X(\tau)-m_X^2\big]\dd\tau=0$$
-复平稳版把 $C_X-m_X^2$ 换成 $R_X-m_X$。\Hi{推论} $\int_{-\infty}^{\infty}|C_X(\tau)|\dd\tau<\infty$ $\Rightarrow$ 均值各态历经；$\lim_{\tau\to\infty}C_X(\tau)=0$ $\Rightarrow$ 均值各态历经。\Hi{定理4.3.3（自相关各态历经）} $\lim\frac1{2T}\int_{-T}^T(1-\frac{|u|}{T})[B(u)-R_X^2(\tau)]\dd u=0$，$B(u)=E\{X(t)X(t+\tau)X(t+u)X(t+\tau+u)\}$。
-正态：$E(X_1X_2X_3X_4)=E(X_1X_2)E(X_3X_4)+E(X_1X_3)E(X_2X_4)+E(X_1X_4)E(X_2X_3)$。
+复平稳版把 $C_X-m_X^2$ 换成 $R_X-m_X$。\Hi{推论} $\int_{-\infty}^{\infty}|C_X(\tau)|\dd\tau<\infty$ $\Rightarrow$ 均值各态历经；$\lim_{\tau\to\infty}C_X(\tau)=0$ $\Rightarrow$ 均值各态历经。\Hi{定理4.3.3（自相关各态历经）} $\lim\frac1{2T}\int_{-T}^T(1-\frac{|u|}{T})[B(u)-R_X^2(\tau)]\dd u=0$，$B(u)=E\{X(t)X(t+\tau)X(t+u)X(t+\tau+u)\}$。正态：$E(X_1X_2X_3X_4)=E(X_1X_2)E(X_3X_4)+E(X_1X_3)E(X_2X_4)+E(X_1X_4)E(X_2X_3)$。
 
 \T{4.4 遍历性三步法} (1) 求 $m_X,R_X$；(2) 判平稳性（$m$ 常数、$C$ 只依赖 $\tau$）；(3) 检验 $\int|C_X|$ 或 $C_X(\tau)\to0$ $\Rightarrow$ 均值各态历经。\Hi{反例} $X(t)\equiv Y$（$D(Y)\ne0$）：平稳但 $P\{X(t)=m_X\}\ne1$ $\Rightarrow$ \emph{不}均值各态历经。
 
-\Sec{各章核心公式一览（速查）}
+\Sec{第5章 马尔可夫过程}
 
-\T{预备知识} $\E X=\int x\dd F$；$D(X)=\E X^2-(\E X)^2=\min_c\E[(X-c)^2]$；$\varphi_X(u)=\E e^{juX}$；$E(X^k)=\varphi^{(k)}(0)/j^k$；$\E Y=\E[\E(Y|X)]$；$D(Y)=\E[D(Y|X)]+D[\E(Y|X)]$；反演 $F(x_2)-F(x_1)=\frac1{2\pi}\int\frac{e^{-jtx_2}-e^{-jtx_1}}{-jt}\varphi(t)\dd t$。
+\T{5.1 马氏性} \B{定义5.1.1} $\forall t_1<\cdots<t_n$：$P\{X(t_n)\le x_n|X(t_1)=x_1,\dots,X(t_{n-1})=x_{n-1}\}=P\{X(t_n)\le x_n|X(t_{n-1})=x_{n-1}\}$；密度形式 $f(x_n;t_n|x_1,\dots,x_{n-1};t_1,\dots,t_{n-1})=f(x_n;t_n|x_{n-1};t_{n-1})$。\Hi{定理5.1.1} 独立过程是马氏过程；\Hi{定理5.1.2} 独立增量过程且 $P\{Y(a)=0\}=1$ $\Rightarrow$ 马氏过程（故泊松、维纳、随机游动都是马氏过程）。转移分布函数 $P(s,t;x,y)=P\{X(t)\le y|X(s)=x\}$；\Hi{有限维分布 = 初始分布 × 转移分布}：$P\{X(t_1)=x_1,\dots,X(t_n)=x_n\}=\prod_{k=1}^nP\{X(t_k)=x_k|X(t_{k-1})=x_{k-1}\}$。
 
-\T{第1章} $m(t)=EX_t$，$D(t)=DX_t$，$R(s,t)=E[X_sX_t]$，$C(s,t)=R-m m$，$\rho=C/\sqrt{D D}$；宽平稳 $m$ 常数、$C=C(\tau)$；严平稳：联合分布平移不变；\Hi{$m(t)=mt,\ D(t)=\sigma^2t,\ C(s,t)=\sigma^2\min(s,t)$}（平稳独立增量、$X_0=0$）。
+\T{5.2 离散参数马氏链} 状态空间可数称\B{马氏链}；一步转移概率 $p_{ij}^{(m)}=P\{X(m+1)=j|X(m)=i\}$；$k$ 步 $p_{ij}^{(k)}(m)=P\{X(m+k)=j|X(m)=i\}$；转移矩阵 $P=(p_{ij})$ 为\B{随机矩阵}：$p_{ij}\ge0$，$\sum_jp_{ij}=1$，行向量是概率向量。\Hi{定理5.2.1（C--K 方程）}
+$$p_{ij}^{(k+l)}(m)=\sum_{r\in E}p_{ir}^{(k)}(m)\,p_{rj}^{(l)}(m+k)$$$$P^{(k+l)}(m)=P^{(k)}(m)P^{(l)}(m+k).$$
 
-\T{第2章} 正态 $N(\mu,B)$：$\varphi=e^{j\mu t-\frac12t^{\mathsf T}Bt}$，$Y=CX\sim N(C\mu,CBC^{\mathsf T})$；维纳：$C(s,t)=\sigma^2\min(s,t)$，不可微；泊松：$m=D=\lambda t$，$C=\lambda\min$，$T_n\sim Exp(\lambda)$，$W_n\sim\Gamma(n,\lambda)$，$f=\frac{n!}{t^n}$；复合泊松 $m=\lambda tE(Y_1)$，$D=\lambda tE(Y_1^2)$。
+\T{5.3 齐次马氏链} \B{定义5.3.1} 一步转移概率与起始时刻无关：$p_{ij}^{(m)}=p_{ij}$ $\forall m$。\Hi{推论1 $P^{(n)}=P^{(1)}P^{(1)}\cdots=P^n$}。\Hi{定理5.3.3} 绝对分布 $\pi_j(n)=\sum_i\pi_i(0)p_{ij}^{(n)}$，即 $\pi(n)=\pi(0)P^n$；\Hi{定理5.3.4} 有限维分布 $P\{X(n_1)=i_1,\dots,X(n_k)=i_k\}=\sum_i\pi_i(0)p_{ii_1}^{(n_1)}p_{i_1i_2}^{(n_2-n_1)}\cdots p_{i_{k-1}i_k}^{(n_k-n_{k-1})}$。\B{定义5.3.3 遍历性}：$\lim_{n\to\infty}p_{ij}^{(n)}=\pi_j>0$ 且与 $i$ 无关；$\pi_j>0,\sum_j\pi_j=1$ 称极限分布。\Hi{定理5.3.5（遍历性定理）} 有限状态：若存在 $n_0$ 使 $P^{(n_0)}$ 每元素 $>0$（\B{正则阵}），则链遍历，极限分布是方程组 $\pi_j=\sum_i\pi_ip_{ij}$，$\sum_j\pi_j=1$，$\pi_j>0$ 的唯一解，且 $\pi=\pi P$（不动点向量），$\lim P^{(n)}=W=\begin{pmatrix}\Pi\\\vdots\\\Pi\end{pmatrix}$；\Hi{定理5.3.6} $\lim\pi_j(n)=\pi_j$。\B{定义5.3.5 平稳分布} $V=VP$（不唯一）；\Hi{定理5.3.7} 初分布为平稳分布 $\Rightarrow$ 绝对分布恒为 $V$；正则（遍历）链的极限分布即平稳分布。
 
-\T{第3章} 均方收敛 $\lim E|X_n-X|^2=0$；洛易夫 $\lim_{m,n}E(X_mX_n)$ 存在 $\iff$ 均方收敛；均方连续 $\iff R$ 在对角线连续；均方可微 $\iff R$ 广义二阶可微；$E[(\int X\dd t)^2]=\iint R(s,t)\dd s\dd t$；$\int_a^bX'\dd t=X(b)-X(a)$。
+\T{5.4 状态分类} \B{定义5.4.4 首达概率} $f_{ij}^{(n)}=P\{X(n)=j,\ X(k)\ne j,\ 1\le k\le n-1|X(0)=i\}$；\B{定义5.4.5 最终概率} $f_{ij}=\sum_{n\ge1}f_{ij}^{(n)}$；\B{首达时间} $T_{ij}=\min\{n\ge1:X(n)=j|X(0)=i\}$，\B{平均时间} $\mu_{ij}=E[T_{ij}]=\sum_{n\ge1}n f_{ij}^{(n)}$。\Hi{定理5.4.1（首达概率表示式）}
+$$f_{ij}^{(n)}=\sum_{i_1\ne j,\dots,i_{n-1}\ne j}p_{ii_1}p_{i_1i_2}\cdots p_{i_{n-1}j}.$$
+\Hi{定理5.4.2} $p_{ij}^{(n)}=\sum_{m=1}^nf_{ij}^{(m)}p_{jj}^{(n-m)}$，$p_{jj}^{(0)}=1$。\B{定义5.4.6} $f_{ii}=1$ 常返；$f_{ii}<1$ 非常返（瞬时）；\B{5.4.7} 常返且 $\mu_{ii}<\infty$ 正常返，$\mu_{ii}=\infty$ 零常返；\B{5.4.8 周期} $d_i=\mathrm{GCD}\{n:p_{ii}^{(n)}>0\}$，$d_i=1$ 非周期；\B{5.4.9 遍历态} = 非周期正常返（\B{遍历马氏链} = 所有状态皆遍历态）。\Hi{定理5.4.4（常返判别）} $j$ 常返 $\iff f_{jj}=1$；\Hi{推论} 非常返 $\iff$ 三者之一：$\sum_np_{jj}^{(n)}<+\infty$；$P\{T_j<\infty\}<1$；$f_{jj}<1$；且 $\lim p_{jj}^{(n)}=0$。\Hi{定理5.4.6} $j$ 常返：$\lim p_{jj}^{(n)}=0$ $\iff$ 零常返；$\lim p_{jj}^{(n)}=\frac1{\mu_{jj}}>0$ $\iff$ 非周期正常返。
 
-\T{第4章} $R_X(\tau)$：$R(0)\ge0$、$|R(\tau)|\le R(0)$、$R(-\tau)=R(\tau)$、非负定；$E[X(t)-X(t_0)]^2=2[R(0)-R(t-t_0)]$；均值各态历经 $\iff\frac1{2T}\int_{-T}^T(1-\frac{|\tau|}{T})[C_X(\tau)-m^2]\dd\tau\to0$。
+\T{5.5 状态空间分解} \B{定义5.4.1 可达} $i\to j\iff p_{ij}^{(n)}>0$ 某 $n\ge1$；\B{定义5.5.1 互通} $i\leftrightarrow j\iff i\to j$ 且 $j\to i$（等价关系：自反、对称、传递）；\B{定义5.5.2 闭集} $\forall i\in C,j\notin C:p_{ij}=0$（充要：$p_{ij}^{(n)}=0,\forall n$）；$\{i\}$ 为闭集 $\iff p_{ii}=1$，即\B{吸收态}；\B{定义5.5.3 不可约} 闭集 $C$ 无非空闭真子集；\B{不可约马氏链} $E$ 不可约。\Hi{定理5.4.5／5.5.3} $i$ 常返且 $i\to j\Rightarrow j\to i$ 且 $f_{ji}=1$，$j$ 也常返（常返态集是闭集）；\Hi{定理5.5.4} 所有常返态构成闭集；不可约链 $\Rightarrow$ 或全常返或全非常返。\Hi{定理5.5.5} 链不可约 $\iff$ 任意两状态互通。\Hi{定理5.5.7（分解定理）} $E=N\cup C_1\cup C_2\cup\cdots$：$N$ 非常返态集，$C_k$ 常返态组成的互不相交不可约闭集，且 $\forall i,j\in C_k:\ f_{ij}=1$。\Hi{定理5.5.8} $i\in N$，$j$ 常返：$f_{ij}=\sum_{k\in N}p_{ik}f_{kj}+\sum_{k\in H}p_{ik}$，$H=\{k:k\leftrightarrow j\}$。\B{有限马氏链性质}：非常返态集非闭、无零常返、必有正常返态。
 
-\Sec{高频易错点汇总}
-\begin{itemize}
-\item 均方收敛 $\nRightarrow$ a.s.\ 收敛；依分布 $\nRightarrow$ 依概率。
-\item 维纳过程、泊松过程均方连续且均方可积，但均方\emph{不可微}；$W$ 是鞅，$N(t)-\lambda t$ 是鞅。
-\item $N(t)\sim P(\lambda t)$ 不能推出泊松过程（须用等价定义）。
-\item 宽平稳 $\nRightarrow$ 严平稳；对正态（高斯）过程二者等价。
-\item 一维分布族不能唯一确定随机过程，须配合相容的有限维分布族（Kolmogorov）。
-\item 独立 $\iff$ $\varphi_{X+Y}=\varphi_X\varphi_Y$ $\iff$ $B$ 对角（正态情形）。
-\item 连续白噪声 $R(0)=\infty$，不是普通二阶矩过程，只能作广义过程。
-\item $N_1+N_2$ 是泊松过程（强度相加），$N_1-N_2$ 不是。
-\item 均方积分用 $\iint R(s,t)$ 判可积与求矩；牛顿--莱布尼兹 $\int_a^bX'\dd t=X(b)-X(a)$。
-\item $R_X$ 连续 $\iff$ 均方连续；$R_X$ 二次可微 $\iff$ 均方可微；实正态时 $X$ 与 $X'$ 独立。
-\end{itemize}
+\T{5.6 吸收链} \B{定义} 含吸收态且每个非吸收态可达某吸收态。标准形 $P=\begin{pmatrix}E_r&O\\R&S\end{pmatrix}$，$s=n-r$；\B{定义6.4.2 基矩阵} $F=(E_s-S)^{-1}$；\Hi{定理6.4.3} $a_{ij}=\mu_{ij}=E[T_{ij}]=\sum_{n\ge1}n f_{ij}^{(n)}$ 为平均转移步数，$F$ 第 $i$ 行元素和为被吸收前平均步数；\Hi{定理6.4.4} $B=FR=(E_s-S)^{-1}R$，$b_{ij}$ 为由 $i$ 出发被 $j$ 吸收的概率。\Hi{例（竞赛得分）} $P=\begin{pmatrix}1&0&0&0&0\\1-p&p&0&0&0\\0&1-p&p&0&0\\0&0&1-p&p&0\\0&0&0&0&1\end{pmatrix}$，$\Pi=\Pi P$ $\Rightarrow$ $b_{24}=\frac{p^2}{1-2pq}$（甲队获胜概率）。
 
-\Sec{必背公式清单（考场速写）}
-\begin{itemize}
-\item $m(t)=mt,\ D(t)=\sigma^2t,\ C(s,t)=\sigma^2\min(s,t)$（性质1.3.1）。
-\item 维纳：$W_t-W_s\sim N(0,\sigma^2(t-s))$；泊松：$N(t)-N(s)\sim P(\lambda(t-s))$。
-\item $f_{W_n}(t)=\frac{\lambda^nt^{n-1}}{(n-1)!}e^{-\lambda t}$；条件到达时刻 $f=\frac{n!}{t^n}$。
-\item 洛易夫：均方收敛 $\iff\lim_{m,n}E(X_mX_n)$ 存在。
-\item $E[(\int_a^bX\dd t)^2]=\iint R(s,t)\dd s\dd t$。
-\item 遍历性判据 $\frac1{2T}\int_{-T}^T(1-\frac{|\tau|}{T})[C_X(\tau)-m^2]\dd\tau\to0$。
-\item $E[(\int_a^bX\dd t)^2]=\iint R$，$D[\int_a^bX\dd t]=2\int_a^b(b-\tau)R(\tau)\dd\tau$。
-\item 反演公式 $f(x)=\frac1{2\pi}\int e^{-jtx}\varphi(t)\dd t$；$E(X^k)=\varphi^{(k)}(0)/j^k$。
-\end{itemize}
+\Sec{三角公式速查}
+
+\T{两角和公式} $\sin(A\pm B)=\sin A\cos B\pm\cos A\sin B$；$\cos(A\pm B)=\cos A\cos B\mp\sin A\sin B$。
+\T{和差化积} $\sin a+\sin b=2\sin\frac{a+b}2\cos\frac{a-b}2$；$\sin a-\sin b=2\cos\frac{a+b}2\sin\frac{a-b}2$；
+$$\cos a+\cos b=2\cos\frac{a+b}2\cos\frac{a-b}2$$$$\cos a-\cos b=-2\sin\frac{a+b}2\sin\frac{a-b}2.$$
+\T{积化和差} $\sin a\sin b=-\frac12[\cos(a+b)-\cos(a-b)]$；$\cos a\cos b=\frac12[\cos(a+b)+\cos(a-b)]$；
+$$\sin a\cos b=\tfrac12[\sin(a+b)+\sin(a-b)]$$$$\cos a\sin b=\tfrac12[\sin(a+b)-\sin(a-b)].$$
+
+\Sec{必背清单与易错点}
+
+\T{核心公式} $m(t)=mt,\ D(t)=\sigma^2t,\ C(s,t)=\sigma^2\min(s,t)$；维纳 $W_t-W_s\sim N(0,\sigma^2(t-s))$；泊松 $N(t)-N(s)\sim P(\lambda(t-s))$，$f_{W_n}=\frac{\lambda^nt^{n-1}}{(n-1)!}e^{-\lambda t}$，条件到达时刻 $f=\frac{n!}{t^n}$；洛易夫：均方收敛 $\iff\lim E(X_mX_n)$ 存在；$E[(\int_a^bX\dd t)^2]=\iint R(s,t)$；$\int_a^bX'\dd t=X(b)-X(a)$；$D[\int_a^bX\dd t]=2\int_a^b(b-\tau)R(\tau)\dd\tau$；遍历性判据 $\frac1{2T}\int_{-T}^T(1-\frac{|\tau|}{T})[C_X(\tau)-m^2]\dd\tau\to0$；反演 $f(x)=\frac1{2\pi}\int e^{-jtx}\varphi(t)\dd t$，$E(X^k)=\varphi^{(k)}(0)/j^k$；$P^{(n)}=P^n$，$\pi(n)=\pi(0)P^n$，$\pi=\pi P$；$p_{ij}^{(n)}=\sum_mf_{ij}^{(m)}p_{jj}^{(n-m)}$，$f_{ij}^{(n)}=\sum p_{ii_1}\cdots p_{i_{n-1}j}$，$\mu_{ij}=\sum nf_{ij}^{(n)}$。
+
+\T{易错点} 均方 $\nRightarrow$ a.s.；依分布 $\nRightarrow$ 依概率；维纳/泊松均方连续、可积但\Hi{不可微}；$N(t)\sim P(\lambda t)$ 不能推出泊松过程（须用等价定义）；宽平稳 $\nRightarrow$ 严平稳（正态时等价）；一维分布不能唯一确定随机过程（Kolmogorov）；独立 $\iff\varphi_{X+Y}=\varphi_X\varphi_Y\iff B$ 对角（正态）；连续白噪声 $R(0)=\infty$；$N_1+N_2$ 是泊松、$N_1-N_2$ 不是；\Hi{零初值独立增量 $\Rightarrow$ 马氏，反之不然（独立增量但初值 $\ne0$）}；\Hi{遍历性(链) $\ne$ 遍历态}；\Hi{可达 $\ne$ 互通；互通 $\Rightarrow$ 同类型}；\Hi{常返态集是闭集，反之不然}；有限链必有正常返态、无零常返。
 
 \end{multicols}
 \end{document}
